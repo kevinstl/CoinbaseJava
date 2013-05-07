@@ -1,0 +1,81 @@
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'war'
+
+sourceCompatibility = 1.6
+version = '1.0'
+jar {
+    manifest {
+        attributes 'Implementation-Title': 'Gradle Quickstart', 'Implementation-Version': version
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+sourceSets {
+
+		main {
+			java {
+				srcDir 'src/main'
+			}
+		}
+
+    test {
+        java {
+            srcDir 'src/test/unit'
+            srcDir 'src/test/cucumber'
+            srcDir 'src/test/integration'
+        }       
+    }
+}
+
+dependencies {
+    testCompile  'junit:junit:4.+'
+    testCompile  'org.mockito:mockito-all:1.9.0'
+    testCompile  'org.easymock:easymock:3.1'
+    testCompile  'org.powermock:powermock-mockito-release-full:1.4.12'
+    testCompile  'org.powermock:powermock-easymock-release-full:1.4.12'
+    
+    testCompile  'org.seleniumhq.selenium:selenium-java:2.25.0'
+    
+    testCompile  'info.cukes:cucumber-java:1.1.2'
+    testCompile  'info.cukes:cucumber-core:1.1.2'
+    testCompile  'info.cukes:cucumber-junit:1.1.2'
+    testCompile  'info.cukes:cucumber-spring:1.1.2'
+    testCompile  'info.cukes:gherkin:2.11.2'
+    
+    testCompile  'org.springframework:spring-test:3.2.1.RELEASE'
+    
+    
+    compile 'commons-collections:commons-collections:3.2'
+    compile 'commons-codec:commons-codec:1.7'
+    compile 'commons-httpclient:commons-httpclient:3.1'
+    
+    
+    compile 'org.springframework:spring-core:3.2.1.RELEASE'
+    compile 'org.springframework:spring-context:3.2.1.RELEASE'
+            
+    
+    compile fileTree(dir: 'lib', includes: ['*.jar'])
+	  compile fileTree(dir: '../repos', includes: ['*.jar'])
+}
+
+test {
+    systemProperties 'property': 'value'
+}
+
+uploadArchives {
+    repositories {
+       flatDir {
+           dirs 'repos'
+       }
+    }
+}
+
+war {
+	from 'src'
+	archiveName = 'CoinbaseJava.jar'
+}
+
