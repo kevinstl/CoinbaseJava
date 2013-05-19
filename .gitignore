@@ -10,3 +10,5 @@
 *.war
 *.ear
 /bin
+/target
+/chromedriver.log

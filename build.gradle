@@ -18,7 +18,8 @@ sourceSets {
 
 		main {
 			java {
-				srcDir 'src/main'
+				srcDir 'src/main/java'
+				srcDir 'src/main/resources'
 			}
 		}
 
@@ -27,6 +28,7 @@ sourceSets {
             srcDir 'src/test/unit'
             srcDir 'src/test/cucumber'
             srcDir 'src/test/integration'
+            srcDir 'src/test/resources'
         }       
     }
 }
@@ -51,7 +53,7 @@ dependencies {
     
     compile 'commons-collections:commons-collections:3.2'
     compile 'commons-codec:commons-codec:1.7'
-    compile 'commons-httpclient:commons-httpclient:3.1'
+    compile 'org.apache.httpcomponents:httpclient:4.2.5'
     
     
     compile 'org.springframework:spring-core:3.2.1.RELEASE'
