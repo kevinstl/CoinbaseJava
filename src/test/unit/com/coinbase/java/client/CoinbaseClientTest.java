@@ -27,7 +27,7 @@ public class CoinbaseClientTest {
   }
   
   @Test
-  public void getBalanceReturnsBalance() throws ClientProtocolException, IOException {
+  public void getBalance_ReturnsBalance() throws ClientProtocolException, IOException {
     
     String expectedBalance = "expectedBalance";
     
@@ -36,6 +36,18 @@ public class CoinbaseClientTest {
     String actualBalance = testObject.getBalance();
     
     assertEquals(expectedBalance, actualBalance);
+  }
+  
+  @Test
+  public void getReceiveAddress_ReturnsUsersCurrentReceiveAddress() throws ClientProtocolException, IOException {
+    
+    String expectedReceiveAddress = "expectedReceiveAddress";
+    
+    when(coinbaseHttpClient.getResponseStringFromHttpGet(any(String.class))).thenReturn(expectedReceiveAddress);
+    
+    String actualReceiveAddress = testObject.getReceiveAddress();
+    
+    assertEquals(expectedReceiveAddress, actualReceiveAddress);
   }
 
 }

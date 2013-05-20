@@ -8,4 +8,6 @@ public interface CoinbaseClient {
 
   String getBalance() throws ClientProtocolException, IOException;
 
+  String getReceiveAddress() throws ClientProtocolException, IOException;
+
 }

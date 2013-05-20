@@ -35,5 +35,17 @@ public class CoinbaseClientImpl implements CoinbaseClient {
   }
 
 
+  @Override
+  public String getReceiveAddress() throws ClientProtocolException, IOException {
+    String urlString = "https://coinbase.com/api/v1/account/receive_address?api_key=" + apiKey;
+    
+    String responseString = coinbaseHttpClient.getResponseStringFromHttpGet(urlString);
+    
+    logger.info("httpResponse.toString(): " + responseString);
+    
+    return responseString;
+  }
+
+
 
 }
