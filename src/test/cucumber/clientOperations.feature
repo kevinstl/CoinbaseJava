@@ -1,5 +1,5 @@
 @BUY_COIN
-Feature: buyCoin - Buy a bitcoin.
+Feature: clientOperations - Execute Coinbase client operations.
 
 Scenario: I am able to get my balance of bitcoins
 
