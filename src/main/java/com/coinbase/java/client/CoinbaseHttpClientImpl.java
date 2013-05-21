@@ -33,8 +33,6 @@ public class CoinbaseHttpClientImpl implements CoinbaseHttpClient{
       throws IOException, ClientProtocolException {
     String responseString = "";
     
-//    HttpClient httpClient = new DefaultHttpClient();
-        
     HttpGet httpGet = new HttpGet(urlString);
 
     HttpResponse httpResponse = httpClient.execute(httpGet);
@@ -78,13 +76,18 @@ public class CoinbaseHttpClientImpl implements CoinbaseHttpClient{
 
         }
 
-        // When HttpClient instance is no longer needed,
-        // shut down the connection manager to ensure
-        // immediate deallocation of all system resources
-        httpClient.getConnectionManager().shutdown();
+        //shutdown();
     }
     
     return responseString;
+  }
+
+  @Override
+  public void shutdown() {
+    // When HttpClient instance is no longer needed,
+    // shut down the connection manager to ensure
+    // immediate deallocation of all system resources
+    httpClient.getConnectionManager().shutdown();
   }
   
 }

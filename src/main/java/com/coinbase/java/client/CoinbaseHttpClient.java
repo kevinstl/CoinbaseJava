@@ -9,4 +9,6 @@ public interface CoinbaseHttpClient {
   String getResponseStringFromHttpGet(String urlString) throws IOException,
       ClientProtocolException;
 
+  void shutdown();
+
 }

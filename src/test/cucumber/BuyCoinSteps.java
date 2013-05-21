@@ -34,6 +34,18 @@ public class BuyCoinSteps {
   @Then("^I see that a balance is returned$")
   public void I_see_that_a_balance_is_returned() throws Throwable {
     assertThat(balanceResponse, containsString("amount"));
+    assertThat(balanceResponse, containsString("currency"));
+  }
+  
+  @When("^I get my bitcoin recieve address$")
+  public void I_get_my_bitcoin_recieve_address() throws Throwable {
+    balanceResponse = coinbaseClient.getReceiveAddress();
+  }
+
+  @Then("^I see that a receive address is returned$")
+  public void I_see_that_a_receive_address_is_returned() throws Throwable {
+    assertThat(balanceResponse, containsString("\"success\":true"));
+    assertThat(balanceResponse, containsString("address"));
   }
   
 }
