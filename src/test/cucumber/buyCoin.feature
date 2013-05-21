@@ -1,6 +1,6 @@
 @BUY_COIN
 Feature: buyCoin - Buy a bitcoin.
 
-Scenario: I am able to drain a vanilla visa card using PayPal
+Scenario: I am able to get my balance of bitcoins
 
 Given I get my balance of bitcoins
