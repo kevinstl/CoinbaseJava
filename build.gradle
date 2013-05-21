@@ -50,6 +50,8 @@ dependencies {
     
     testCompile  'org.springframework:spring-test:3.2.1.RELEASE'
     
+    testCompile  'org.hamcrest:hamcrest-all:1.3'
+    
     
     compile 'commons-collections:commons-collections:3.2'
     compile 'commons-codec:commons-codec:1.7'
