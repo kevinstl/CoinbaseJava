@@ -14,4 +14,30 @@ public interface CoinbaseClient {
 
   String cancelRequest() throws ClientProtocolException, IOException;
 
+  String getAddresses() throws ClientProtocolException, IOException;
+
+  String getContacts() throws ClientProtocolException, IOException;
+
+  String getCurrencies() throws ClientProtocolException, IOException;
+
+  String getExchangeRates() throws ClientProtocolException, IOException;
+
+  String getOrders() throws ClientProtocolException, IOException;
+
+  String getInvidualOrder(Integer orderId) throws ClientProtocolException, IOException;
+
+  String getPriceToBuy() throws ClientProtocolException, IOException;
+
+  String getPriceToSell() throws ClientProtocolException, IOException;
+
+  String getRecentTransactions() throws ClientProtocolException, IOException;
+
+  String getIndividualTransaction(Integer transactionId) throws ClientProtocolException, IOException;
+
+  String getRecentBuysAndSells() throws ClientProtocolException, IOException;
+
+  String getCurrentUser() throws ClientProtocolException, IOException;
+
+  String getOperationUrl(String operation);
+
 }
