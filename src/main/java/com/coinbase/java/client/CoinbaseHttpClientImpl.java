@@ -11,8 +11,10 @@ import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpDelete;
 import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.client.methods.HttpUriRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -31,11 +33,40 @@ public class CoinbaseHttpClientImpl implements CoinbaseHttpClient{
   @Override
   public String getResponseStringFromHttpGet(String urlString)
       throws IOException, ClientProtocolException {
-    String responseString = "";
     
     HttpGet httpGet = new HttpGet(urlString);
+    
+    String responseString = executeHttpUriRequest(httpGet);
+    
+    return responseString;
+  }
+  
+  @Override
+  public String getResponseStringFromHttpPost(String urlString)
+      throws IOException, ClientProtocolException {
+    
+    HttpPost httpPost = new HttpPost(urlString);
+    
+    String responseString = executeHttpUriRequest(httpPost);
+    
+    return responseString;
+  }
+  
+  @Override
+  public String getResponseStringFromHttpDelete(String urlString)
+      throws IOException, ClientProtocolException {
+    HttpDelete httpDelete = new HttpDelete(urlString);
+    
+    String responseString = executeHttpUriRequest(httpDelete);
+    
+    return responseString;
+  }
 
-    HttpResponse httpResponse = httpClient.execute(httpGet);
+  private String executeHttpUriRequest(HttpUriRequest  httpUriRequest) throws IOException,
+      ClientProtocolException {
+    String responseString = "";
+
+    HttpResponse httpResponse = httpClient.execute(httpUriRequest);
 
     logger.info("httpResponse.toString(): " + httpResponse.toString());
     
@@ -66,7 +97,7 @@ public class CoinbaseHttpClientImpl implements CoinbaseHttpClient{
             // In case of an unexpected exception you may want to abort
             // the HTTP request in order to shut down the underlying
             // connection and release it back to the connection manager.
-          httpGet.abort();
+          httpUriRequest.abort();
             throw ex;
 
         } finally {
@@ -78,7 +109,6 @@ public class CoinbaseHttpClientImpl implements CoinbaseHttpClient{
 
         //shutdown();
     }
-    
     return responseString;
   }
 
@@ -89,5 +119,6 @@ public class CoinbaseHttpClientImpl implements CoinbaseHttpClient{
     // immediate deallocation of all system resources
     httpClient.getConnectionManager().shutdown();
   }
+
   
 }

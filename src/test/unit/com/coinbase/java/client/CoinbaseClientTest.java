@@ -1,6 +1,7 @@
 package com.coinbase.java.client;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 import java.io.IOException;
 
@@ -29,25 +30,49 @@ public class CoinbaseClientTest {
   @Test
   public void getBalance_ReturnsBalance() throws ClientProtocolException, IOException {
     
-    String expectedBalance = "expectedBalance";
+    String expectedResponse = "expectedResponse";
     
-    when(coinbaseHttpClient.getResponseStringFromHttpGet(any(String.class))).thenReturn(expectedBalance);
+    when(coinbaseHttpClient.getResponseStringFromHttpGet(any(String.class))).thenReturn(expectedResponse);
     
     String actualBalance = testObject.getBalance();
     
-    assertEquals(expectedBalance, actualBalance);
+    assertEquals(expectedResponse, actualBalance);
   }
   
   @Test
   public void getReceiveAddress_ReturnsUsersCurrentReceiveAddress() throws ClientProtocolException, IOException {
     
-    String expectedReceiveAddress = "expectedReceiveAddress";
+    String expectedResponse = "expectedResponse";
     
-    when(coinbaseHttpClient.getResponseStringFromHttpGet(any(String.class))).thenReturn(expectedReceiveAddress);
+    when(coinbaseHttpClient.getResponseStringFromHttpGet(any(String.class))).thenReturn(expectedResponse);
     
     String actualReceiveAddress = testObject.getReceiveAddress();
     
-    assertEquals(expectedReceiveAddress, actualReceiveAddress);
+    assertEquals(expectedResponse, actualReceiveAddress);
+  }
+  
+  @Test
+  public void generateReceiveAddress_generatesNewReceiveAddress() throws ClientProtocolException, IOException{
+    
+    String expectedResponse = "expectedResponse";
+    
+    when(coinbaseHttpClient.getResponseStringFromHttpPost(any(String.class))).thenReturn(expectedResponse);
+    
+    String actualResponse = testObject.generateReceiveAddress();
+    
+    assertNotNull(actualResponse);
+  }
+  
+  @Test
+  public void cancelRequest_cancelsRequest() throws ClientProtocolException, IOException{
+    
+    String expectedResponse = "expectedResponse";
+    
+    when(coinbaseHttpClient.getResponseStringFromHttpDelete(any(String.class))).thenReturn(expectedResponse);
+    
+    String actualResponse = testObject.cancelRequest();
+    
+    assertNotNull(actualResponse);
   }
 
 }
