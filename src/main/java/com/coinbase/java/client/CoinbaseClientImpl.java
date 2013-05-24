@@ -14,7 +14,7 @@ public class CoinbaseClientImpl implements CoinbaseClient {
   
   public static final String FORWARD_SLASH = "/";
   public static final String CANCEL_REQUEST = "/cancel_request";
-  public static final String GENERATE_RECEIVE_ADDRESS = "/generate_receive_address";
+  public static final String GENERATE_RECEIVE_ADDRESS = "/account/generate_receive_address";
   public static final String USERS = "/users";
   public static final String TRANSFERS = "/transfers";
   public static final String TRANSACTIONS = "/transactions";
@@ -25,12 +25,12 @@ public class CoinbaseClientImpl implements CoinbaseClient {
   public static final String CURRENCIES = "/currencies";
   public static final String CONTACTS = "/contacts";
   public static final String ADDRESSES = "/addresses";
-  public static final String RECEIVE_ADDRESS = "/receive_address";
-  public static final String BALANCE = "/balance";
+  public static final String RECEIVE_ADDRESS = "/account/receive_address";
+  public static final String BALANCE = "/account/balance";
 
   private static final String API_KEY = "?api_key=";
 
-  private static final String HTTPS_COINBASE_COM_API_V1_ACCOUNT = "https://coinbase.com/api/v1/account";
+  private static final String HTTPS_COINBASE_COM_API_V1_ACCOUNT = "https://coinbase.com/api/v1";
 
   private static Logger logger = Logger.getLogger(CoinbaseClientImpl.class.getName());
 
@@ -93,7 +93,7 @@ public class CoinbaseClientImpl implements CoinbaseClient {
 
   @Override
   public String getExchangeRates() throws ClientProtocolException, IOException {
-    String operation = EXCHANGE_RATES;
+    String operation = CURRENCIES + EXCHANGE_RATES;
     
     String responseString = httpGet(operation);
     

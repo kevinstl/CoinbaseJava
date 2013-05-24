@@ -8,9 +8,9 @@ import org.junit.runner.RunWith;
 import cucumber.api.junit.Cucumber;
 
 @RunWith(Cucumber.class)
-@Cucumber.Options(tags = { "@BUY_COIN" }, monochrome = true, format = {"pretty", "html:target/cucumber", "junit:target/junit.xml", "json-pretty:target/cucumber-report-pretty.json", "json:target/cucumber-report.json"})
+//@Cucumber.Options(tags = { "@BUY_COIN" }, monochrome = true, format = {"pretty", "html:target/cucumber", "junit:target/junit.xml", "json-pretty:target/cucumber-report-pretty.json", "json:target/cucumber-report.json"})
 //@Cucumber.Options(tags = { "@VALIDATION" }, monochrome = true, format = {"pretty", "html:target/cucumber", "junit:target/junit.xml", "json-pretty:target/cucumber-report-pretty.json", "json:target/cucumber-report.json"})
-//@Cucumber.Options(tags = { "@WIP" }, monochrome = true, format = {"pretty", "html:target/cucumber", "junit:target/junit.xml", "json-pretty:target/cucumber-report-pretty.json", "json:target/cucumber-report.json"})
+@Cucumber.Options(tags = { "@WIP" }, monochrome = true, format = {"pretty", "html:target/cucumber", "junit:target/junit.xml", "json-pretty:target/cucumber-report-pretty.json", "json:target/cucumber-report.json"})
 //@Cucumber.Options(tags = { "@MIGRATED" }, monochrome = true, format = {"pretty", "html:target/cucumber", "junit:target/junit.xml", "json-pretty:target/cucumber-report-pretty.json", "json:target/cucumber-report.json"})
 // NOTES:
 // 	1) To only run UI tests add "tags = { "@UI" }, " into Cucumber.Options

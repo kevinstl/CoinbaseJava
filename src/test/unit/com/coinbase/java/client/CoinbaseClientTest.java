@@ -92,7 +92,7 @@ public class CoinbaseClientTest {
     
     String expectedResponse = "expectedResponse";
     
-    when(coinbaseHttpClient.getResponseStringFromHttpGet(testObject.getOperationUrl(CoinbaseClientImpl.EXCHANGE_RATES))).thenReturn(expectedResponse);
+    when(coinbaseHttpClient.getResponseStringFromHttpGet(testObject.getOperationUrl(CoinbaseClientImpl.CURRENCIES + CoinbaseClientImpl.EXCHANGE_RATES))).thenReturn(expectedResponse);
     
     String actualResponse = testObject.getExchangeRates();
     
