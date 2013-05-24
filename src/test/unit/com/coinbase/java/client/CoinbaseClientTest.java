@@ -23,8 +23,8 @@ public class CoinbaseClientTest {
   @Before
   public void setup() {
     MockitoAnnotations.initMocks(this);
-    
-    testObject = new CoinbaseClientImpl(coinbaseHttpClient);
+    testObject = new CoinbaseClientImpl("apiKey");
+    testObject.setCoinbaseHttpClient(coinbaseHttpClient);
   }
   
   @Test

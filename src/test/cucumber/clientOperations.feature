@@ -1,4 +1,4 @@
-@BUY_COIN @WIP
+@CLIENT_OPERATIONS
 Feature: clientOperations - Execute Coinbase client operations.
 
 

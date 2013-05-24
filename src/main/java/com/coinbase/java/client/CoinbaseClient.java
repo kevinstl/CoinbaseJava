@@ -40,4 +40,6 @@ public interface CoinbaseClient {
 
   String getOperationUrl(String operation);
 
+  void setCoinbaseHttpClient(CoinbaseHttpClient coinbaseHttpClient);
+
 }

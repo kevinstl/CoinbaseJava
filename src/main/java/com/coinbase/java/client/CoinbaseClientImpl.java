@@ -34,12 +34,25 @@ public class CoinbaseClientImpl implements CoinbaseClient {
 
   private static Logger logger = Logger.getLogger(CoinbaseClientImpl.class.getName());
 
-  private CoinbaseHttpClient coinbaseHttpClient;
-  private @Value("${apiKey}") String apiKey;
-  
   @Autowired
-  public CoinbaseClientImpl(CoinbaseHttpClient coinbaseHttpClient) {
+  private CoinbaseHttpClient coinbaseHttpClient;
+  
+  public CoinbaseHttpClient getCoinbaseHttpClient() {
+    return coinbaseHttpClient;
+  }
+
+  @Override
+  public void setCoinbaseHttpClient(CoinbaseHttpClient coinbaseHttpClient) {
     this.coinbaseHttpClient = coinbaseHttpClient;
+  }
+
+  private String apiKey;
+  
+  private CoinbaseClientImpl() {
+  }
+  
+  public CoinbaseClientImpl(String apiKey) {
+    this.apiKey = apiKey;
   }
   
   
