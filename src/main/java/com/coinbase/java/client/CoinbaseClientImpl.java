@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
-import com.coinbase.java.domain.TransactionWrapper;
+import com.coinbase.java.domain.TransactionSenderWrapper;
 import com.google.gson.Gson;
 
 
@@ -230,11 +230,11 @@ public class CoinbaseClientImpl implements CoinbaseClient {
 
   
   @Override
-  public String sendMoney(TransactionWrapper transaction) throws ClientProtocolException, IOException {
+  public String sendMoney(TransactionSenderWrapper transactionSenderWrapper) throws ClientProtocolException, IOException {
     String operation = TRANSACTIONS + FORWARD_SLASH + "send_money";
     
     Gson gson = new Gson(); // Or use new GsonBuilder().create();
-    String payload = gson.toJson(transaction);
+    String payload = gson.toJson(transactionSenderWrapper);
     
     String responseString = httpPost(operation, payload);
     

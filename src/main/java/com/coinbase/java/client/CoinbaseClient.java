@@ -4,7 +4,7 @@ import java.io.IOException;
 
 import org.apache.http.client.ClientProtocolException;
 
-import com.coinbase.java.domain.TransactionWrapper;
+import com.coinbase.java.domain.TransactionSenderWrapper;
 
 public interface CoinbaseClient {
 
@@ -46,6 +46,6 @@ public interface CoinbaseClient {
   
   void setCoinbaseHttpClient(CoinbaseHttpClient coinbaseHttpClient);
 
-  String sendMoney(TransactionWrapper transaction) throws ClientProtocolException, IOException;
+  String sendMoney(TransactionSenderWrapper transactionSenderWrapper) throws ClientProtocolException, IOException;
 
 }

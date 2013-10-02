@@ -1,12 +1,12 @@
 package com.coinbase.java.domain;
 
 
-public class TransactionWrapper {
+public class TransactionSenderWrapper {
   
   private Transaction transaction;
 
   
-  public TransactionWrapper(String to, Amount amount, String notes) {
+  public TransactionSenderWrapper(String to, String amount, String notes) {
     super();
     this.transaction = new Transaction(to, amount, notes);
   }
@@ -14,13 +14,13 @@ public class TransactionWrapper {
   public class Transaction {
     
     private String to;
-    private Amount amount;
+    private String amount;
     private String notes;
     
-    public Transaction(String to, Amount amount, String notes) {
+    public Transaction(String to, String amount, String notes) {
       super();
       this.to = to;
-      this.amount = amount;
+      this.setAmount(amount);
       this.notes = notes;
     }
 
@@ -32,20 +32,20 @@ public class TransactionWrapper {
       this.to = to;
     }
 
-    public Amount getAmount() {
-      return amount;
-    }
-
-    public void setAmount(Amount amount) {
-      this.amount = amount;
-    }
-
     public String getNotes() {
       return notes;
     }
 
     public void setNotes(String notes) {
       this.notes = notes;
+    }
+
+    public String getAmount() {
+      return amount;
+    }
+
+    public void setAmount(String amount) {
+      this.amount = amount;
     }
     
     

@@ -1,21 +1,18 @@
-import org.springframework.beans.factory.annotation.Autowired;
-
-import com.coinbase.java.client.CoinbaseClient;
-import com.coinbase.java.client.CoinbaseClientImpl;
-import com.coinbase.java.domain.AmountWrapper.Amount;
-import com.coinbase.java.domain.TransactionWrapper;
-import com.google.gson.JsonObject;
-
-import cucumber.api.PendingException;
-import cucumber.api.java.en.Given;
-import cucumber.api.java.en.Then;
-import cucumber.api.java.en.When;
-
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.containsString;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.*;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.coinbase.java.client.CoinbaseClient;
+import com.coinbase.java.domain.Amount;
+import com.coinbase.java.domain.TransactionSenderWrapper;
+import com.coinbase.java.domain.TransactionWrapper;
+
+import cucumber.api.java.en.Given;
+import cucumber.api.java.en.Then;
+import cucumber.api.java.en.When;
 
 
 public class CoinbaseClientSteps {
@@ -185,10 +182,12 @@ public class CoinbaseClientSteps {
     String currency = "USD";
     
 //    Amount amount = new Amount(amountValue, currency);
-//    String notes = "Sending " + amount + " test.";
+//    String notes = "Sending " + amount.getAmount() + " test.";
+    String notes = "Sending " + amountValue + " test.";
     
 //    TransactionWrapper transactionWrapper = new TransactionWrapper(bitcoinAddress, amount, notes);
-//    serviceResponse = coinbaseClient.sendMoney(transactionWrapper);
+    TransactionSenderWrapper transactionSenderWrapper = new TransactionSenderWrapper(bitcoinAddress, amountValue, notes);
+    serviceResponse = coinbaseClient.sendMoney(transactionSenderWrapper);
     
 // //    JsonObject jsonObject = serviceResponse.getAsJsonObject();
 // //    Result result = gson.fromJson(<YOUR OBJECT IN JSON>, Result.class);
