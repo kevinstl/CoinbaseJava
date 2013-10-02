@@ -10,7 +10,7 @@ public interface CoinbaseHttpClient {
 
   void shutdown();
 
-  String getResponseStringFromHttpPost(String urlString) throws IOException, ClientProtocolException;
+  String getResponseStringFromHttpPost(String urlString, String payload) throws IOException, ClientProtocolException;
 
   String getResponseStringFromHttpDelete(String urlString) throws IOException, ClientProtocolException;
 

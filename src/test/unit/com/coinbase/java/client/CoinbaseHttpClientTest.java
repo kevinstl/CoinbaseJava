@@ -60,7 +60,7 @@ public class CoinbaseHttpClientTest {
     String urlString = "http://anyUrl.com";
     String expectedStringResponse = setupHttpRequest();
     
-    String actualStringResponse = testObject.getResponseStringFromHttpPost(urlString);
+    String actualStringResponse = testObject.getResponseStringFromHttpPost(urlString, null);
     
     assertEquals(expectedStringResponse, actualStringResponse);
   }

@@ -99,4 +99,11 @@ Given I have an instance of CoinbaseClient
 When I get the current user with account settings
 Then I see that the current user with account settings is returned
 
+@WIP
+Scenario: I am able to send money to a bitcoin address
+
+Given I have an instance of CoinbaseClient
+When I send money to bitcoin address "157azQfjWP6EKHUuP38epEqENzHuxKdWrv"
+Then I see that the transaction is successful
+
 

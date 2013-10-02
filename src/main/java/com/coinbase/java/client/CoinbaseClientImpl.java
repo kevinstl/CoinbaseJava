@@ -8,6 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
+import com.coinbase.java.domain.TransactionWrapper;
+import com.google.gson.Gson;
+
 
 @Component
 public class CoinbaseClientImpl implements CoinbaseClient {
@@ -82,6 +85,17 @@ public class CoinbaseClientImpl implements CoinbaseClient {
     
     return responseString;
   }
+  
+  @Override
+  public String getPaymentButton() throws ClientProtocolException, IOException {
+    String operation = ADDRESSES;
+    
+    String payload = null;
+    String responseString = httpPost(operation, payload);
+    
+    return responseString;
+  }
+
 
 
   @Override
@@ -198,7 +212,8 @@ public class CoinbaseClientImpl implements CoinbaseClient {
   public String generateReceiveAddress() throws ClientProtocolException, IOException {
     String operation = GENERATE_RECEIVE_ADDRESS;
     
-    String responseString = httpPost(operation);
+    String payload = null;
+    String responseString = httpPost(operation, payload);
     
     return responseString;
   }
@@ -213,6 +228,20 @@ public class CoinbaseClientImpl implements CoinbaseClient {
   }
 
 
+  
+  @Override
+  public String sendMoney(TransactionWrapper transaction) throws ClientProtocolException, IOException {
+    String operation = TRANSACTIONS + FORWARD_SLASH + "send_money";
+    
+    Gson gson = new Gson(); // Or use new GsonBuilder().create();
+    String payload = gson.toJson(transaction);
+    
+    String responseString = httpPost(operation, payload);
+    
+    return responseString;
+  }
+
+  
 
   private String httpGet(String operation) throws IOException,
   ClientProtocolException {
@@ -230,11 +259,11 @@ public class CoinbaseClientImpl implements CoinbaseClient {
     return HTTPS_COINBASE_COM_API_V1_ACCOUNT + operation + API_KEY + apiKey;
   }
 
-  private String httpPost(String operation) throws IOException,
+  private String httpPost(String operation, String payload) throws IOException,
       ClientProtocolException {
     String urlString = getOperationUrl(operation); 
     
-    String responseString = coinbaseHttpClient.getResponseStringFromHttpPost(urlString);
+    String responseString = coinbaseHttpClient.getResponseStringFromHttpPost(urlString, payload);
     
     logger.info("httpResponse.toString(): " + responseString);
     return responseString;
@@ -249,6 +278,7 @@ public class CoinbaseClientImpl implements CoinbaseClient {
     logger.info("httpResponse.toString(): " + responseString);
     return responseString;
   }
+
 
 
 

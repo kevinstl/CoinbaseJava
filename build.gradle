@@ -60,6 +60,9 @@ dependencies {
     
     compile 'org.springframework:spring-core:3.2.1.RELEASE'
     compile 'org.springframework:spring-context:3.2.1.RELEASE'
+    
+    
+    compile 'com.google.code.gson:gson:2.2.4'
             
     
     compile fileTree(dir: 'lib', includes: ['*.jar'])

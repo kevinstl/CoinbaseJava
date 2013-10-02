@@ -7,6 +7,7 @@ import java.io.InputStreamReader;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
@@ -15,6 +16,7 @@ import org.apache.http.client.methods.HttpDelete;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.methods.HttpUriRequest;
+import org.apache.http.entity.StringEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -36,18 +38,26 @@ public class CoinbaseHttpClientImpl implements CoinbaseHttpClient{
     
     HttpGet httpGet = new HttpGet(urlString);
     
-    String responseString = executeHttpUriRequest(httpGet);
+    String responseString = executeHttpUriRequest(httpGet, null);
     
     return responseString;
   }
   
   @Override
-  public String getResponseStringFromHttpPost(String urlString)
+  public String getResponseStringFromHttpPost(String urlString, String payload)
       throws IOException, ClientProtocolException {
+    
+    
+    logger.info("payload: " + payload);
     
     HttpPost httpPost = new HttpPost(urlString);
     
-    String responseString = executeHttpUriRequest(httpPost);
+    
+    StringEntity stringEntity = new StringEntity(payload);
+    
+    httpPost.setEntity(stringEntity);
+    
+    String responseString = executeHttpUriRequest(httpPost, "application/json");
     
     return responseString;
   }
@@ -57,13 +67,18 @@ public class CoinbaseHttpClientImpl implements CoinbaseHttpClient{
       throws IOException, ClientProtocolException {
     HttpDelete httpDelete = new HttpDelete(urlString);
     
-    String responseString = executeHttpUriRequest(httpDelete);
+    String responseString = executeHttpUriRequest(httpDelete, null);
     
     return responseString;
   }
 
-  private String executeHttpUriRequest(HttpUriRequest  httpUriRequest) throws IOException,
+  private String executeHttpUriRequest(HttpUriRequest  httpUriRequest, String contentType) throws IOException,
       ClientProtocolException {
+    
+    if(StringUtils.isNotBlank(contentType)){
+      httpUriRequest.setHeader("content-type", contentType);
+    }
+    
     String responseString = "";
 
     HttpResponse httpResponse = httpClient.execute(httpUriRequest);
@@ -82,8 +97,15 @@ public class CoinbaseHttpClientImpl implements CoinbaseHttpClient{
             BufferedReader reader = new BufferedReader(
                     new InputStreamReader(instream));
             // do something useful with the response
-            responseString = reader.readLine();
-            System.out.println(responseString);
+//            responseString = reader.readLine();
+            
+            StringBuilder stringBuilder = new StringBuilder();
+            String line;
+            while ((line = reader.readLine()) != null) {
+              stringBuilder.append(line);
+            }
+            responseString = stringBuilder.toString();
+//            System.out.println(responseString);
             logger.log(Level.FINEST, responseString);
 
         } catch (IOException ex) {

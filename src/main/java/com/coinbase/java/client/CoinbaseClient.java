@@ -4,6 +4,8 @@ import java.io.IOException;
 
 import org.apache.http.client.ClientProtocolException;
 
+import com.coinbase.java.domain.TransactionWrapper;
+
 public interface CoinbaseClient {
 
   String getBalance() throws ClientProtocolException, IOException;
@@ -12,10 +14,10 @@ public interface CoinbaseClient {
 
   String generateReceiveAddress() throws ClientProtocolException, IOException;
 
-  String cancelRequest() throws ClientProtocolException, IOException;
-
   String getAddresses() throws ClientProtocolException, IOException;
 
+  String getPaymentButton() throws ClientProtocolException, IOException;
+  
   String getContacts() throws ClientProtocolException, IOException;
 
   String getCurrencies() throws ClientProtocolException, IOException;
@@ -40,6 +42,10 @@ public interface CoinbaseClient {
 
   String getOperationUrl(String operation);
 
+  String cancelRequest() throws ClientProtocolException, IOException;
+  
   void setCoinbaseHttpClient(CoinbaseHttpClient coinbaseHttpClient);
+
+  String sendMoney(TransactionWrapper transaction) throws ClientProtocolException, IOException;
 
 }
