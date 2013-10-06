@@ -1,0 +1,17 @@
+{ "success" : true,
+  "transaction" : { "amount" : { "amount" : "-0.00100000",
+          "currency" : "BTC"
+        },
+      "created_at" : "2013-10-06T14:51:16-07:00",
+      "hsh" : null,
+      "id" : "001",
+      "notes" : "Sending 0.001 test.",
+      "recipient_address" : "157azQfjWP6EKHUuP38epEqENzHuxKdWrv",
+      "request" : false,
+      "sender" : { "email" : "test@hotmail.com",
+          "id" : "0011",
+          "name" : "test@hotmail.com"
+        },
+      "status" : "pending"
+    }
+}

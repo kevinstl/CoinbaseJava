@@ -1,0 +1,18 @@
+{ "errors" : [ "This transaction requires a 0.0005 fee to be accepted by the bitcoin network. Do you want to add it?  (This fee does not go to Coinbase.)" ],
+  "success" : false,
+  "transaction" : { "amount" : { "amount" : "-0.00010000",
+          "currency" : "BTC"
+        },
+      "created_at" : null,
+      "hsh" : null,
+      "id" : "001",
+      "notes" : "Sending 0.0001 test.",
+      "recipient_address" : "0011",
+      "request" : false,
+      "sender" : { "email" : "test@hotmail.com",
+          "id" : "0111",
+          "name" : "test@hotmail.com"
+        },
+      "status" : "pending"
+    }
+}
