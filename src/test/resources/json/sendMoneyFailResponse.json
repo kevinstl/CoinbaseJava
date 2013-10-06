@@ -1,11 +1,10 @@
 {
-    "response": {
         "success": false,
         "errors": [
             "This transaction amount is below the current minimum amount to be accepted by the bitcoin network. (0.00005430 BTC)"
         ],
         "transaction": {
-            "id": "5249e1d880cab9865e00003e",
+            "id": "001",
             "created_at": null,
             "hsh": null,
             "notes": "Sending 0.0000001 test.",
@@ -15,7 +14,6 @@
             },
             "request": false,
             "status": "pending",
-            "recipient_address": "157azQfjWP6EKHUuP38epEqENzHuxKdWrv"
+            "recipient_address": "011"
         }
-    }
 }

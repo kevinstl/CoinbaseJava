@@ -20,8 +20,8 @@ import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
-import com.coinbase.java.domain.ResponseWrapper;
 import com.coinbase.java.domain.deserializer.ResponseDeserializer;
+import com.coinbase.java.domain.response.SendMoneyResponse;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -31,6 +31,8 @@ import static org.mockito.Matchers.any;
 
 public class ResponseDeserializerTest {
   
+  private static final String JSON_PATH = "/json";
+
   private ResponseDeserializer testObject;
   
   private @Mock HttpClient httpClient;
@@ -50,14 +52,28 @@ public class ResponseDeserializerTest {
   public void responseDeserializer_deserializes() throws ClientProtocolException, IOException {
     
     String responseAsString = FileUtils.readFileToString(FileUtils.toFile(
-        this.getClass().getResource("/json/response.json")));
+        this.getClass().getResource(JSON_PATH + "/sendMoneyFailResponse.json")));
     
-    ResponseWrapper actualResponse = testObject.deserialize(responseAsString);
+    SendMoneyResponse sendMoneyResponse = testObject.deserialize(responseAsString);
     
     assertNotNull(responseAsString);
-    assertNotNull(actualResponse);
+    assertNotNull(sendMoneyResponse);
     
-    assertEquals("false", actualResponse.getResponse().getSuccess());
+    assertEquals("false", sendMoneyResponse.getSuccess());
+  }
+  
+  @Test
+  public void responseDeserializer_deserializesSuccessResponse() throws ClientProtocolException, IOException {
+    
+    String responseAsString = FileUtils.readFileToString(FileUtils.toFile(
+        this.getClass().getResource(JSON_PATH + "/sendMoneySuccessResponse.json")));
+    
+    SendMoneyResponse sendMoneyResponse = testObject.deserialize(responseAsString);
+    
+    assertNotNull(responseAsString);
+    assertNotNull(sendMoneyResponse);
+    
+    assertEquals("true", sendMoneyResponse.getSuccess());
   }
 
   

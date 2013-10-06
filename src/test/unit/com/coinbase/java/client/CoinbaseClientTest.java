@@ -204,7 +204,7 @@ public class CoinbaseClientTest {
     
     String expectedResponse = "expectedResponse";
     
-    when(coinbaseHttpClient.getResponseStringFromHttpPost(any(String.class), null)).thenReturn(expectedResponse);
+    when(coinbaseHttpClient.getResponseStringFromHttpPost(any(String.class), any(String.class))).thenReturn(expectedResponse);
     
     String actualResponse = testObject.generateReceiveAddress();
     

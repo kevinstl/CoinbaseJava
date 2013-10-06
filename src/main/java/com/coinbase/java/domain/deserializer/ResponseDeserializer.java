@@ -1,16 +1,20 @@
 package com.coinbase.java.domain.deserializer;
 
-import com.coinbase.java.domain.ResponseWrapper;
+import org.springframework.stereotype.Component;
+
+import com.coinbase.java.domain.response.SendMoneyResponse;
 import com.google.gson.Gson;
 
+@Component
 public class ResponseDeserializer {
 
-  public ResponseWrapper deserialize(String jsonString) {
+  public SendMoneyResponse deserialize(String jsonString) {
     
     Gson gson = new Gson() ;
-    ResponseWrapper responseWrapper = gson.fromJson(jsonString, ResponseWrapper.class);
+    Class<SendMoneyResponse> classOfT = SendMoneyResponse.class;
+    SendMoneyResponse response = gson.fromJson(jsonString, classOfT);
     
-    return responseWrapper;
+    return response;
   }
   
   

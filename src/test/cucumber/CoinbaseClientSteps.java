@@ -1,14 +1,15 @@
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.containsString;
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.coinbase.java.client.CoinbaseClient;
-import com.coinbase.java.domain.Amount;
-import com.coinbase.java.domain.TransactionSenderWrapper;
-import com.coinbase.java.domain.TransactionWrapper;
+import com.coinbase.java.domain.deserializer.ResponseDeserializer;
+import com.coinbase.java.domain.request.TransactionRequest;
+import com.coinbase.java.domain.response.SendMoneyResponse;
 
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
@@ -18,9 +19,13 @@ import cucumber.api.java.en.When;
 public class CoinbaseClientSteps {
   
   @Autowired
-  private CoinbaseClient coinbaseClient; 
+  private CoinbaseClient coinbaseClient;
+  
+  @Autowired
+  private ResponseDeserializer responseDeserializer; 
   
   private String serviceResponse;
+  private String notes;
   
 
   @Given("^I have an instance of CoinbaseClient$")
@@ -178,25 +183,30 @@ public class CoinbaseClientSteps {
   @When("^I send money to bitcoin address \"([^\"]*)\"$")
   public void I_send_money_to_bitcoin_address(String bitcoinAddress) throws Throwable {
     
-    String amountValue = "0.0000001";
-    String currency = "USD";
+    String amountValue = "0.001";
     
-//    Amount amount = new Amount(amountValue, currency);
-//    String notes = "Sending " + amount.getAmount() + " test.";
-    String notes = "Sending " + amountValue + " test.";
+    notes = "Sending " + amountValue + " test.";
     
-//    TransactionWrapper transactionWrapper = new TransactionWrapper(bitcoinAddress, amount, notes);
-    TransactionSenderWrapper transactionSenderWrapper = new TransactionSenderWrapper(bitcoinAddress, amountValue, notes);
+    TransactionRequest transactionSenderWrapper = new TransactionRequest(bitcoinAddress, amountValue, notes);
     serviceResponse = coinbaseClient.sendMoney(transactionSenderWrapper);
-    
-// //    JsonObject jsonObject = serviceResponse.getAsJsonObject();
-// //    Result result = gson.fromJson(<YOUR OBJECT IN JSON>, Result.class);
     
   }
 
   @Then("^I see that the transaction is successful$")
   public void I_see_that_the_transaction_is_successful() throws Throwable {
-    assertTrue(serviceResponse.contains("\"success\": true"));
+    assertThat(serviceResponse, containsString("\"success\":false"));
+    assertThat(serviceResponse, containsString("\"errors\":[\"This transaction"));
+    
+    SendMoneyResponse sendMoneyResponse = responseDeserializer.deserialize(serviceResponse);
+    
+    assertEquals("false", sendMoneyResponse.getSuccess());
+    assertThat(sendMoneyResponse.getErrors()[0], containsString("This transaction amount is below the current minimum"));
+    assertEquals(notes, sendMoneyResponse.getTransaction().getNotes());
+    assertEquals("0.00000000", sendMoneyResponse.getTransaction().getAmount().getAmount());
+    assertEquals("BTC", sendMoneyResponse.getTransaction().getAmount().getCurrency());
+    assertEquals(false, sendMoneyResponse.getTransaction().getRequest());
+    assertEquals("pending", sendMoneyResponse.getTransaction().getStatus());
+    
   }
   
 }
