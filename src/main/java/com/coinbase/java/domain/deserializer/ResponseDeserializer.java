@@ -2,6 +2,8 @@ package com.coinbase.java.domain.deserializer;
 
 import org.springframework.stereotype.Component;
 
+import com.coinbase.java.domain.response.CurrencyExchangeRateResponse;
+import com.coinbase.java.domain.response.ExchangeRatesResponse;
 import com.coinbase.java.domain.response.SendMoneyResponse;
 import com.google.gson.Gson;
 
@@ -17,6 +19,22 @@ public class ResponseDeserializer {
     return response;
   }
   
+  public CurrencyExchangeRateResponse deserializeCurrencyExchangeRateResponse(String jsonString) {
+    
+    Gson gson = new Gson() ;
+    Class<CurrencyExchangeRateResponse> classOfT = CurrencyExchangeRateResponse.class;
+    CurrencyExchangeRateResponse response = gson.fromJson(jsonString, classOfT);
+    
+    return response;
+  }
   
+  public ExchangeRatesResponse deserializeExchangeRatesResponse(String jsonString) {
+    
+    Gson gson = new Gson() ;
+    Class<ExchangeRatesResponse> classOfT = ExchangeRatesResponse.class;
+    ExchangeRatesResponse response = gson.fromJson(jsonString, classOfT);
+    
+    return response;
+  }
 
 }

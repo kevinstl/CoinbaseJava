@@ -4,12 +4,17 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
 import java.io.IOException;
+import java.math.BigDecimal;
 
+import org.apache.commons.io.FileUtils;
 import org.apache.http.client.ClientProtocolException;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+
+import com.coinbase.java.domain.deserializer.ResponseDeserializer;
+import com.coinbase.java.domain.types.ExchangeRateType;
 
 import static org.mockito.Mockito.when;
 import static org.mockito.Matchers.any;
@@ -20,11 +25,15 @@ public class CoinbaseClientTest {
   
   private @Mock CoinbaseHttpClient coinbaseHttpClient;
   
+  private ResponseDeserializer responseDeserializer;
+  
   @Before
   public void setup() {
     MockitoAnnotations.initMocks(this);
     testObject = new CoinbaseClientImpl("apiKey");
     testObject.setCoinbaseHttpClient(coinbaseHttpClient);
+    responseDeserializer = new ResponseDeserializer();
+    testObject.setResponseDeserializer(responseDeserializer);
   }
   
   @Test
@@ -95,6 +104,23 @@ public class CoinbaseClientTest {
     when(coinbaseHttpClient.getResponseStringFromHttpGet(testObject.getOperationUrl(CoinbaseClientImpl.CURRENCIES + CoinbaseClientImpl.EXCHANGE_RATES))).thenReturn(expectedResponse);
     
     String actualResponse = testObject.getExchangeRates();
+    
+    assertEquals(expectedResponse, actualResponse);
+  }
+  
+  @Test
+  public void getSpecificExchangeRate_returnsExpectedResponse() throws ClientProtocolException, IOException {
+    
+    BigDecimal expectedResponse = new BigDecimal("0.007499");
+    
+    String getExchangeRatesResponse = FileUtils.readFileToString(FileUtils.toFile(
+        this.getClass().getResource(ResponseDeserializerTest.JSON_PATH + "/getExchangeRatesResponse.json")));
+    
+    ExchangeRateType exchangeRateType = ExchangeRateType.usd_to_btc;
+    
+    when(coinbaseHttpClient.getResponseStringFromHttpGet(testObject.getOperationUrl(CoinbaseClientImpl.CURRENCIES + CoinbaseClientImpl.EXCHANGE_RATES))).thenReturn(getExchangeRatesResponse);
+    
+    BigDecimal actualResponse = testObject.getSpecificExchangeRate(exchangeRateType);
     
     assertEquals(expectedResponse, actualResponse);
   }

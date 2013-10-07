@@ -2,14 +2,15 @@ package com.coinbase.java.domain.response;
 
 public class SendMoneyResponse {
   
-  private String success;
+  private Boolean success;
   private String[] errors;
   private Transaction transaction;
   
-  public String getSuccess() {
+
+  public Boolean getSuccess() {
     return success;
   }
-  public void setSuccess(String success) {
+  public void setSuccess(Boolean success) {
     this.success = success;
   }
   public String[] getErrors() {

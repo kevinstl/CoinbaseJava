@@ -1,10 +1,14 @@
 package com.coinbase.java.client;
 
 import java.io.IOException;
+import java.math.BigDecimal;
 
 import org.apache.http.client.ClientProtocolException;
 
+import com.coinbase.java.domain.deserializer.ResponseDeserializer;
 import com.coinbase.java.domain.request.TransactionRequest;
+import com.coinbase.java.domain.response.SendMoneyResponse;
+import com.coinbase.java.domain.types.ExchangeRateType;
 
 public interface CoinbaseClient {
 
@@ -46,6 +50,10 @@ public interface CoinbaseClient {
   
   void setCoinbaseHttpClient(CoinbaseHttpClient coinbaseHttpClient);
 
-  String sendMoney(TransactionRequest transactionSenderWrapper) throws ClientProtocolException, IOException;
+  SendMoneyResponse sendMoney(TransactionRequest transactionSenderWrapper) throws ClientProtocolException, IOException;
+
+  BigDecimal getSpecificExchangeRate(ExchangeRateType exchangeRateType) throws ClientProtocolException, IOException;
+
+  void setResponseDeserializer(ResponseDeserializer responseDeserializer);
 
 }

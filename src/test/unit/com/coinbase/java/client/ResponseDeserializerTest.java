@@ -31,7 +31,7 @@ import static org.mockito.Matchers.any;
 
 public class ResponseDeserializerTest {
   
-  private static final String JSON_PATH = "/json";
+  public static final String JSON_PATH = "/json";
 
   private ResponseDeserializer testObject;
   
@@ -74,6 +74,8 @@ public class ResponseDeserializerTest {
     assertNotNull(sendMoneyResponse);
     
     assertEquals("true", sendMoneyResponse.getSuccess());
+    assertEquals("001", sendMoneyResponse.getTransaction().getId());
+    assertEquals("-0.00100000", sendMoneyResponse.getTransaction().getAmount().getAmount());
   }
 
   

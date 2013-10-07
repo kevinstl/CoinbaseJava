@@ -55,6 +55,7 @@ dependencies {
     
     compile 'commons-collections:commons-collections:3.2'
     compile 'commons-codec:commons-codec:1.7'
+    compile 'commons-lang:commons-lang:2.6'
     compile 'org.apache.httpcomponents:httpclient:4.2.5'
     
     
@@ -83,6 +84,11 @@ uploadArchives {
 
 war {
 	from 'src'
-	archiveName = 'CoinbaseJava.jar'
+	archiveName = 'CoinbaseJava.war'
 }
 
+jar {
+    manifest {
+        attributes 'Implementation-Title': 'Gradle Quickstart', 'Implementation-Version': version
+    }
+}

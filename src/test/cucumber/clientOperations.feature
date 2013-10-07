@@ -107,3 +107,10 @@ When I send money to bitcoin address "157azQfjWP6EKHUuP38epEqENzHuxKdWrv"
 Then I see that the transaction is successful
 
 
+
+Scenario: I am able to find the current value in BTC for a specified amount of USD
+
+Given I want to find the value in BTC of "10" USD
+When I request the value in BTC for my USD
+Then I see an expected amount in BTC
+
