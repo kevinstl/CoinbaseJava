@@ -1,0 +1,35 @@
+{
+  "success": false,
+  "errors": [
+    "Bank account can't be blank"
+  ],
+  "transfer": {
+    "type": "Buy",
+    "code": "ZRFTHD4Q",
+    "created_at": null,
+    "fees": {
+      "coinbase": {
+        "cents": 14,
+        "currency_iso": "USD"
+      },
+      "bank": {
+        "cents": 15,
+        "currency_iso": "USD"
+      }
+    },
+    "status": "new",
+    "payout_date": "2013-02-01T18:00:00-08:00",
+    "btc": {
+      "amount": "1.00000000",
+      "currency": "BTC"
+    },
+    "subtotal": {
+      "amount": "13.55",
+      "currency": "USD"
+    },
+    "total": {
+      "amount": "13.84",
+      "currency": "USD"
+    }
+  }
+}
