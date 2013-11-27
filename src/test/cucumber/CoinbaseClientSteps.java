@@ -4,39 +4,42 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
+import java.math.BigDecimal;
+
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.coinbase.java.client.CoinbaseClient;
 import com.coinbase.java.domain.deserializer.ResponseDeserializer;
+import com.coinbase.java.domain.request.BuyRequest;
 import com.coinbase.java.domain.request.TransactionRequest;
+import com.coinbase.java.domain.response.BuyResponse;
 import com.coinbase.java.domain.response.SendMoneyResponse;
 
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 
-
 public class CoinbaseClientSteps {
-  
+
   private static final String AMOUNT_VALUE = "0.00001";
 
   @Autowired
   private CoinbaseClient coinbaseClient;
-  
+
   @Autowired
-  private ResponseDeserializer responseDeserializer; 
-  
+  private ResponseDeserializer responseDeserializer;
+
   private String serviceResponse;
   private String notes;
-  
+
   private SendMoneyResponse sendMoneyResponse;
-  
+  private BuyResponse buyResponse;
 
   @Given("^I have an instance of CoinbaseClient$")
   public void I_have_an_instance_of_CoinbaseClient() throws Throwable {
-      assertNotNull(coinbaseClient);
+    assertNotNull(coinbaseClient);
   }
-  
+
   @When("^I get my balance of bitcoins$")
   public void I_get_my_balance_of_bitcoins() throws Throwable {
     serviceResponse = coinbaseClient.getBalance();
@@ -47,7 +50,7 @@ public class CoinbaseClientSteps {
     assertThat(serviceResponse, containsString("amount"));
     assertThat(serviceResponse, containsString("currency"));
   }
-  
+
   @When("^I get my bitcoin recieve address$")
   public void I_get_my_bitcoin_recieve_address() throws Throwable {
     serviceResponse = coinbaseClient.getReceiveAddress();
@@ -58,7 +61,7 @@ public class CoinbaseClientSteps {
     assertThat(serviceResponse, containsString("\"success\":true"));
     assertThat(serviceResponse, containsString("address"));
   }
-  
+
   @When("^I get my bitcoin addresses$")
   public void I_get_my_bitcoin_addresses() throws Throwable {
     serviceResponse = coinbaseClient.getAddresses();
@@ -69,7 +72,7 @@ public class CoinbaseClientSteps {
     assertThat(serviceResponse, containsString("addresses"));
     assertThat(serviceResponse, containsString("address"));
   }
-  
+
   @When("^I get my contacts$")
   public void I_get_my_contacts() throws Throwable {
     serviceResponse = coinbaseClient.getContacts();
@@ -111,7 +114,7 @@ public class CoinbaseClientSteps {
     assertThat(serviceResponse, containsString("orders"));
     assertThat(serviceResponse, containsString("total_count"));
   }
-  
+
   @When("^I get an individual order$")
   public void I_get_an_individual_order() throws Throwable {
     Integer orderId = 0;
@@ -183,38 +186,59 @@ public class CoinbaseClientSteps {
   public void I_see_that_the_current_user_with_account_settings_is_returned() throws Throwable {
     assertThat(serviceResponse, containsString("amount"));
   }
-  
+
   @When("^I send money to bitcoin address \"([^\"]*)\"$")
   public void I_send_money_to_bitcoin_address(String bitcoinAddress) throws Throwable {
-    
+
     String amountValue = AMOUNT_VALUE;
-    
+
     notes = "Sending " + amountValue + " test.";
-    
-    TransactionRequest transactionSenderWrapper = new TransactionRequest(bitcoinAddress, amountValue, notes);
-    sendMoneyResponse = coinbaseClient.sendMoney(transactionSenderWrapper);
-    
+
+    TransactionRequest transactionRequest = new TransactionRequest(bitcoinAddress, amountValue, notes);
+    sendMoneyResponse = coinbaseClient.sendMoney(transactionRequest);
+
   }
 
   @Then("^I see that the transaction is successful$")
   public void I_see_that_the_transaction_is_successful() throws Throwable {
-//    assertThat(serviceResponse, containsString("\"success\":false"));
-//    assertThat(serviceResponse, containsString("\"errors\":[\"This transaction"));
-    
+    // assertThat(serviceResponse, containsString("\"success\":false"));
+    // assertThat(serviceResponse,
+    // containsString("\"errors\":[\"This transaction"));
+
     assertTrue(!sendMoneyResponse.getSuccess());
-//    assertTrue(sendMoneyResponse.getErrors() == null);
-    
-//    SendMoneyResponse sendMoneyResponse = responseDeserializer.deserialize(serviceResponse);
-    
-//    assertEquals("false", sendMoneyResponse.getSuccess());
+    // assertTrue(sendMoneyResponse.getErrors() == null);
+
+    // SendMoneyResponse sendMoneyResponse =
+    // responseDeserializer.deserialize(serviceResponse);
+
+    // assertEquals("false", sendMoneyResponse.getSuccess());
     assertThat(sendMoneyResponse.getErrors()[0], containsString("This transaction amount is below the current minimum"));
     assertEquals(notes, sendMoneyResponse.getTransaction().getNotes());
-//    assertEquals("0.00000000", sendMoneyResponse.getTransaction().getAmount().getAmount());
-//    assertEquals(AMOUNT_VALUE, sendMoneyResponse.getTransaction().getAmount().getAmount());
+    // assertEquals("0.00000000",
+    // sendMoneyResponse.getTransaction().getAmount().getAmount());
+    // assertEquals(AMOUNT_VALUE,
+    // sendMoneyResponse.getTransaction().getAmount().getAmount());
     assertEquals("BTC", sendMoneyResponse.getTransaction().getAmount().getCurrency());
     assertEquals(false, sendMoneyResponse.getTransaction().getRequest());
     assertEquals("pending", sendMoneyResponse.getTransaction().getStatus());
+
+  }
+
+  @When("^I buy \"([^\"]*)\" bitcoin$")
+  public void I_buy_bitcoin(BigDecimal bitcoinQty) throws Throwable {
+    
+    notes = "Buying " + bitcoinQty + " test.";
+    
+    BuyRequest buyRequest = new BuyRequest(bitcoinQty);
+
+    buyResponse = coinbaseClient.buy(buyRequest);
+  }
+
+  @Then("^I see that the buy is successful$")
+  public void I_see_that_the_buy_is_successful() throws Throwable {
+    
+    assertTrue(!buyResponse.getSuccess());
     
   }
-  
+
 }

@@ -6,7 +6,9 @@ import java.math.BigDecimal;
 import org.apache.http.client.ClientProtocolException;
 
 import com.coinbase.java.domain.deserializer.ResponseDeserializer;
+import com.coinbase.java.domain.request.BuyRequest;
 import com.coinbase.java.domain.request.TransactionRequest;
+import com.coinbase.java.domain.response.BuyResponse;
 import com.coinbase.java.domain.response.SendMoneyResponse;
 import com.coinbase.java.domain.types.ExchangeRateType;
 
@@ -52,8 +54,11 @@ public interface CoinbaseClient {
 
   SendMoneyResponse sendMoney(TransactionRequest transactionSenderWrapper) throws ClientProtocolException, IOException;
 
-  BigDecimal getSpecificExchangeRate(ExchangeRateType exchangeRateType) throws ClientProtocolException, IOException;
+//  BigDecimal getSpecificExchangeRate(ExchangeRateType exchangeRateType) throws ClientProtocolException, IOException;
+  BigDecimal getSpecificExchangeRate(String exchangeRateType) throws ClientProtocolException, IOException;
 
   void setResponseDeserializer(ResponseDeserializer responseDeserializer);
+
+  BuyResponse buy(BuyRequest buyRequest) throws ClientProtocolException, IOException;
 
 }

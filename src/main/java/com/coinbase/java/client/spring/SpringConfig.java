@@ -10,7 +10,7 @@ import org.springframework.context.annotation.Configuration;
 public class SpringConfig {
   
   @Bean
-  public HttpClient httpClient(){
+  public HttpClient coinbaseApacheHttpClient(){
     HttpClient httpClient = new DefaultHttpClient();
     return httpClient;
   }

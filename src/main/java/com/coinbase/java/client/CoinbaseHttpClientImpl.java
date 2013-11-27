@@ -25,11 +25,11 @@ public class CoinbaseHttpClientImpl implements CoinbaseHttpClient{
   
   private static Logger logger = Logger.getLogger(CoinbaseHttpClientImpl.class.getName());
 
-  private HttpClient httpClient;
+  private HttpClient coinbaseApacheHttpClient;
   
   @Autowired
-  public CoinbaseHttpClientImpl(HttpClient httpClient) {
-    this.httpClient = httpClient;
+  public CoinbaseHttpClientImpl(HttpClient coinbaseApacheHttpClient) {
+    this.coinbaseApacheHttpClient = coinbaseApacheHttpClient;
   }
   
   @Override
@@ -81,7 +81,7 @@ public class CoinbaseHttpClientImpl implements CoinbaseHttpClient{
     
     String responseString = "";
 
-    HttpResponse httpResponse = httpClient.execute(httpUriRequest);
+    HttpResponse httpResponse = coinbaseApacheHttpClient.execute(httpUriRequest);
 
     logger.info("httpResponse.toString(): " + httpResponse.toString());
     
@@ -139,7 +139,7 @@ public class CoinbaseHttpClientImpl implements CoinbaseHttpClient{
     // When HttpClient instance is no longer needed,
     // shut down the connection manager to ensure
     // immediate deallocation of all system resources
-    httpClient.getConnectionManager().shutdown();
+    coinbaseApacheHttpClient.getConnectionManager().shutdown();
   }
 
   

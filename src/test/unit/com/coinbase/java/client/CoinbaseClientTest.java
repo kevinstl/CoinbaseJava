@@ -120,7 +120,8 @@ public class CoinbaseClientTest {
     
     when(coinbaseHttpClient.getResponseStringFromHttpGet(testObject.getOperationUrl(CoinbaseClientImpl.CURRENCIES + CoinbaseClientImpl.EXCHANGE_RATES))).thenReturn(getExchangeRatesResponse);
     
-    BigDecimal actualResponse = testObject.getSpecificExchangeRate(exchangeRateType);
+//    BigDecimal actualResponse = testObject.getSpecificExchangeRate(exchangeRateType);
+    BigDecimal actualResponse = testObject.getSpecificExchangeRate(exchangeRateType.toString());
     
     assertEquals(expectedResponse, actualResponse);
   }

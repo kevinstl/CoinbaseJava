@@ -1,14 +1,16 @@
 package com.coinbase.java.domain.response;
 
+import java.math.BigDecimal;
+
 public class Amount {
   
-  private String amount;
+  private BigDecimal amount;
   private String currency;
   
-  public String getAmount() {
+  public BigDecimal getAmount() {
     return amount;
   }
-  public void setAmount(String amount) {
+  public void setAmount(BigDecimal amount) {
     this.amount = amount;
   }
   public String getCurrency() {

@@ -10,7 +10,9 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import com.coinbase.java.domain.deserializer.ResponseDeserializer;
+import com.coinbase.java.domain.request.BuyRequest;
 import com.coinbase.java.domain.request.TransactionRequest;
+import com.coinbase.java.domain.response.BuyResponse;
 import com.coinbase.java.domain.response.ExchangeRatesResponse;
 import com.coinbase.java.domain.response.SendMoneyResponse;
 import com.coinbase.java.domain.types.ExchangeRateType;
@@ -35,6 +37,7 @@ public class CoinbaseClientImpl implements CoinbaseClient {
   public static final String ADDRESSES = "/addresses";
   public static final String RECEIVE_ADDRESS = "/account/receive_address";
   public static final String BALANCE = "/account/balance";
+  public static final String BUYS = "/buys";
 
   private static final String API_KEY = "?api_key=";
 
@@ -151,7 +154,8 @@ public class CoinbaseClientImpl implements CoinbaseClient {
   
 
   @Override
-  public BigDecimal getSpecificExchangeRate(ExchangeRateType exchangeRateType) throws ClientProtocolException, IOException {
+//  public BigDecimal getSpecificExchangeRate(ExchangeRateType exchangeRateType) throws ClientProtocolException, IOException {
+    public BigDecimal getSpecificExchangeRate(String exchangeRateType) throws ClientProtocolException, IOException {
     String exchangeRates = getExchangeRates();
     
     ExchangeRatesResponse exchangeRatesResponse = responseDeserializer.deserializeExchangeRatesResponse(exchangeRates);
@@ -269,14 +273,28 @@ public class CoinbaseClientImpl implements CoinbaseClient {
   public SendMoneyResponse sendMoney(TransactionRequest transactionSenderWrapper) throws ClientProtocolException, IOException {
     String operation = TRANSACTIONS + FORWARD_SLASH + "send_money";
     
-    Gson gson = new Gson(); // Or use new GsonBuilder().create();
+    Gson gson = new Gson(); 
     String payload = gson.toJson(transactionSenderWrapper);
     
     String responseString = httpPost(operation, payload);
     
-    SendMoneyResponse sendMoneyResponse = responseDeserializer.deserialize(responseString);
+    SendMoneyResponse sendMoneyResponse = responseDeserializer.deserializeSendMoneyResponse(responseString);
     
     return sendMoneyResponse;
+  }
+  
+  @Override
+  public BuyResponse buy(BuyRequest buyRequest) throws ClientProtocolException, IOException {
+    String operation = BUYS;
+    
+    Gson gson = new Gson(); 
+    String payload = gson.toJson(buyRequest);
+    
+    String responseString = httpPost(operation, payload);
+    
+    BuyResponse buyResponse = responseDeserializer.deserializeBuyResponse(responseString);
+    
+    return buyResponse;
   }
 
   
@@ -287,7 +305,7 @@ public class CoinbaseClientImpl implements CoinbaseClient {
     
     String responseString = coinbaseHttpClient.getResponseStringFromHttpGet(urlString);
     
-    logger.info("httpResponse.toString(): " + responseString);
+    //logger.info("httpResponse.toString(): " + responseString);
     return responseString;
   }
 
@@ -303,7 +321,7 @@ public class CoinbaseClientImpl implements CoinbaseClient {
     
     String responseString = coinbaseHttpClient.getResponseStringFromHttpPost(urlString, payload);
     
-    logger.info("httpResponse.toString(): " + responseString);
+    //logger.info("httpResponse.toString(): " + responseString);
     return responseString;
   }
   
@@ -313,7 +331,7 @@ public class CoinbaseClientImpl implements CoinbaseClient {
     
     String responseString = coinbaseHttpClient.getResponseStringFromHttpDelete(urlString);
     
-    logger.info("httpResponse.toString(): " + responseString);
+    //logger.info("httpResponse.toString(): " + responseString);
     return responseString;
   }
 
