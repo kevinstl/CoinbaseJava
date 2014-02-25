@@ -103,7 +103,7 @@ Then I see that the current user with account settings is returned
 Scenario: I am able to send money to a bitcoin address
 
 Given I have an instance of CoinbaseClient
-When I send money to bitcoin address "157azQfjWP6EKHUuP38epEqENzHuxKdWrv"
+When I send money to bitcoin address "awe54f4wewe4fwe4fs6f18e4"
 Then I see that the transaction is successful
 
 
@@ -114,7 +114,7 @@ When I buy "0.0000000001" bitcoin
 Then I see that the buy is successful
 
 
-
+@WIP
 Scenario: I am able to find the current value in BTC for a specified amount of USD
 
 Given I want to find the value in BTC of "10" USD

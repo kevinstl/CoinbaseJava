@@ -30,7 +30,7 @@ public class CoinbaseClientTest {
   @Before
   public void setup() {
     MockitoAnnotations.initMocks(this);
-    testObject = new CoinbaseClientImpl("apiKey");
+    testObject = new CoinbaseClient("apiKey");
     testObject.setCoinbaseHttpClient(coinbaseHttpClient);
     responseDeserializer = new ResponseDeserializer();
     testObject.setResponseDeserializer(responseDeserializer);
@@ -41,7 +41,7 @@ public class CoinbaseClientTest {
     
     String expectedResponse = "expectedResponse";
     
-    when(coinbaseHttpClient.getResponseStringFromHttpGet(testObject.getOperationUrl(CoinbaseClientImpl.BALANCE))).thenReturn(expectedResponse);
+    when(coinbaseHttpClient.executeGet(testObject.getOperationUrl(CoinbaseClient.BALANCE))).thenReturn(expectedResponse);
     
     String actualBalance = testObject.getBalance();
     
@@ -53,7 +53,7 @@ public class CoinbaseClientTest {
     
     String expectedResponse = "expectedResponse";
     
-    when(coinbaseHttpClient.getResponseStringFromHttpGet(testObject.getOperationUrl(CoinbaseClientImpl.RECEIVE_ADDRESS))).thenReturn(expectedResponse);
+    when(coinbaseHttpClient.executeGet(testObject.getOperationUrl(CoinbaseClient.RECEIVE_ADDRESS))).thenReturn(expectedResponse);
     
     String actualResponse = testObject.getReceiveAddress();
     
@@ -65,7 +65,7 @@ public class CoinbaseClientTest {
     
     String expectedResponse = "expectedResponse";
     
-    when(coinbaseHttpClient.getResponseStringFromHttpGet(testObject.getOperationUrl(CoinbaseClientImpl.ADDRESSES))).thenReturn(expectedResponse);
+    when(coinbaseHttpClient.executeGet(testObject.getOperationUrl(CoinbaseClient.ADDRESSES))).thenReturn(expectedResponse);
     
     String actualResponse = testObject.getAddresses();
     
@@ -77,7 +77,7 @@ public class CoinbaseClientTest {
     
     String expectedResponse = "expectedResponse";
     
-    when(coinbaseHttpClient.getResponseStringFromHttpGet(testObject.getOperationUrl(CoinbaseClientImpl.CONTACTS))).thenReturn(expectedResponse);
+    when(coinbaseHttpClient.executeGet(testObject.getOperationUrl(CoinbaseClient.CONTACTS))).thenReturn(expectedResponse);
     
     String actualResponse = testObject.getContacts();
     
@@ -89,7 +89,7 @@ public class CoinbaseClientTest {
     
     String expectedResponse = "expectedResponse";
     
-    when(coinbaseHttpClient.getResponseStringFromHttpGet(testObject.getOperationUrl(CoinbaseClientImpl.CURRENCIES))).thenReturn(expectedResponse);
+    when(coinbaseHttpClient.executeGet(testObject.getOperationUrl(CoinbaseClient.CURRENCIES))).thenReturn(expectedResponse);
     
     String actualResponse = testObject.getCurrencies();
     
@@ -101,7 +101,7 @@ public class CoinbaseClientTest {
     
     String expectedResponse = "expectedResponse";
     
-    when(coinbaseHttpClient.getResponseStringFromHttpGet(testObject.getOperationUrl(CoinbaseClientImpl.CURRENCIES + CoinbaseClientImpl.EXCHANGE_RATES))).thenReturn(expectedResponse);
+    when(coinbaseHttpClient.executeGet(testObject.getOperationUrl(CoinbaseClient.CURRENCIES + CoinbaseClient.EXCHANGE_RATES))).thenReturn(expectedResponse);
     
     String actualResponse = testObject.getExchangeRates();
     
@@ -118,7 +118,7 @@ public class CoinbaseClientTest {
     
     ExchangeRateType exchangeRateType = ExchangeRateType.usd_to_btc;
     
-    when(coinbaseHttpClient.getResponseStringFromHttpGet(testObject.getOperationUrl(CoinbaseClientImpl.CURRENCIES + CoinbaseClientImpl.EXCHANGE_RATES))).thenReturn(getExchangeRatesResponse);
+    when(coinbaseHttpClient.executeGet(testObject.getOperationUrl(CoinbaseClient.CURRENCIES + CoinbaseClient.EXCHANGE_RATES))).thenReturn(getExchangeRatesResponse);
     
 //    BigDecimal actualResponse = testObject.getSpecificExchangeRate(exchangeRateType);
     BigDecimal actualResponse = testObject.getSpecificExchangeRate(exchangeRateType.toString());
@@ -131,7 +131,7 @@ public class CoinbaseClientTest {
     
     String expectedResponse = "expectedResponse";
     
-    when(coinbaseHttpClient.getResponseStringFromHttpGet(testObject.getOperationUrl(CoinbaseClientImpl.ORDERS))).thenReturn(expectedResponse);
+    when(coinbaseHttpClient.executeGet(testObject.getOperationUrl(CoinbaseClient.ORDERS))).thenReturn(expectedResponse);
     
     String actualResponse = testObject.getOrders();
     
@@ -145,7 +145,7 @@ public class CoinbaseClientTest {
     
     Integer orderId = 1;
     
-    when(coinbaseHttpClient.getResponseStringFromHttpGet(testObject.getOperationUrl(CoinbaseClientImpl.ORDERS + CoinbaseClientImpl.FORWARD_SLASH + orderId))).thenReturn(expectedResponse);
+    when(coinbaseHttpClient.executeGet(testObject.getOperationUrl(CoinbaseClient.ORDERS + CoinbaseClient.FORWARD_SLASH + orderId))).thenReturn(expectedResponse);
     
     String actualResponse = testObject.getInvidualOrder(orderId);
     
@@ -157,7 +157,7 @@ public class CoinbaseClientTest {
     
     String expectedResponse = "expectedResponse";
     
-    when(coinbaseHttpClient.getResponseStringFromHttpGet(testObject.getOperationUrl(CoinbaseClientImpl.PRICES_BUY))).thenReturn(expectedResponse);
+    when(coinbaseHttpClient.executeGet(testObject.getOperationUrl(CoinbaseClient.PRICES_BUY))).thenReturn(expectedResponse);
     
     String actualResponse = testObject.getPriceToBuy();
     
@@ -169,7 +169,7 @@ public class CoinbaseClientTest {
     
     String expectedResponse = "expectedResponse";
     
-    when(coinbaseHttpClient.getResponseStringFromHttpGet(testObject.getOperationUrl(CoinbaseClientImpl.PRICES_SELL))).thenReturn(expectedResponse);
+    when(coinbaseHttpClient.executeGet(testObject.getOperationUrl(CoinbaseClient.PRICES_SELL))).thenReturn(expectedResponse);
     
     String actualResponse = testObject.getPriceToSell();
     
@@ -181,7 +181,7 @@ public class CoinbaseClientTest {
     
     String expectedResponse = "expectedResponse";
     
-    when(coinbaseHttpClient.getResponseStringFromHttpGet(testObject.getOperationUrl(CoinbaseClientImpl.TRANSACTIONS))).thenReturn(expectedResponse);
+    when(coinbaseHttpClient.executeGet(testObject.getOperationUrl(CoinbaseClient.TRANSACTIONS))).thenReturn(expectedResponse);
     
     String actualResponse = testObject.getRecentTransactions();
     
@@ -195,7 +195,7 @@ public class CoinbaseClientTest {
     
     Integer transactionId = 1;
     
-    when(coinbaseHttpClient.getResponseStringFromHttpGet(testObject.getOperationUrl(CoinbaseClientImpl.TRANSACTIONS + CoinbaseClientImpl.FORWARD_SLASH + transactionId))).thenReturn(expectedResponse);
+    when(coinbaseHttpClient.executeGet(testObject.getOperationUrl(CoinbaseClient.TRANSACTIONS + CoinbaseClient.FORWARD_SLASH + transactionId))).thenReturn(expectedResponse);
     
     String actualResponse = testObject.getIndividualTransaction(transactionId);
     
@@ -207,7 +207,7 @@ public class CoinbaseClientTest {
     
     String expectedResponse = "expectedResponse";
     
-    when(coinbaseHttpClient.getResponseStringFromHttpGet(testObject.getOperationUrl(CoinbaseClientImpl.TRANSFERS))).thenReturn(expectedResponse);
+    when(coinbaseHttpClient.executeGet(testObject.getOperationUrl(CoinbaseClient.TRANSFERS))).thenReturn(expectedResponse);
     
     String actualResponse = testObject.getRecentBuysAndSells();
     
@@ -219,7 +219,7 @@ public class CoinbaseClientTest {
     
     String expectedResponse = "expectedResponse";
     
-    when(coinbaseHttpClient.getResponseStringFromHttpGet(testObject.getOperationUrl(CoinbaseClientImpl.USERS))).thenReturn(expectedResponse);
+    when(coinbaseHttpClient.executeGet(testObject.getOperationUrl(CoinbaseClient.USERS))).thenReturn(expectedResponse);
     
     String actualResponse = testObject.getCurrentUser();
     
@@ -231,7 +231,7 @@ public class CoinbaseClientTest {
     
     String expectedResponse = "expectedResponse";
     
-    when(coinbaseHttpClient.getResponseStringFromHttpPost(any(String.class), any(String.class))).thenReturn(expectedResponse);
+    when(coinbaseHttpClient.executePost(any(String.class), any(String.class))).thenReturn(expectedResponse);
     
     String actualResponse = testObject.generateReceiveAddress();
     
@@ -243,7 +243,7 @@ public class CoinbaseClientTest {
     
     String expectedResponse = "expectedResponse";
     
-    when(coinbaseHttpClient.getResponseStringFromHttpDelete(any(String.class))).thenReturn(expectedResponse);
+    when(coinbaseHttpClient.executeDelete(any(String.class))).thenReturn(expectedResponse);
     
     String actualResponse = testObject.cancelRequest();
     

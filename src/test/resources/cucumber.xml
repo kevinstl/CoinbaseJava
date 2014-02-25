@@ -15,9 +15,10 @@
   
 	<bean id="projectProperties" class="org.springframework.beans.factory.config.PropertiesFactoryBean">
 	    <property name="locations">
-	        <list>
-	            <value>classpath:configuration.properties</value>
-	        </list>
+        <list>
+            <value>file:C:\tmp\configuration.properties</value>
+            <value>file:/tmp/configuration.properties</value>
+        </list>
 	    </property>
 	</bean>
 	

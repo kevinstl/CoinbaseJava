@@ -9,6 +9,7 @@ import java.math.BigDecimal;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.coinbase.java.client.CoinbaseClient;
+import com.coinbase.java.client.CoinbaseClientAuthenticatedMock;
 import com.coinbase.java.domain.deserializer.ResponseDeserializer;
 import com.coinbase.java.domain.request.BuyRequest;
 import com.coinbase.java.domain.request.TransactionRequest;
@@ -21,11 +22,11 @@ import cucumber.api.java.en.When;
 
 public class CoinbaseClientSteps {
 
-  private static final String AMOUNT_VALUE = "0.00001";
-
+  private static final String AMOUNT_VALUE = "0.0000000001";
+  
   @Autowired
-  private CoinbaseClient coinbaseClient;
-
+  private CoinbaseClientAuthenticatedMock coinbaseClientAuthenticatedMock;
+  
   @Autowired
   private ResponseDeserializer responseDeserializer;
 
@@ -37,12 +38,12 @@ public class CoinbaseClientSteps {
 
   @Given("^I have an instance of CoinbaseClient$")
   public void I_have_an_instance_of_CoinbaseClient() throws Throwable {
-    assertNotNull(coinbaseClient);
+    assertNotNull(coinbaseClientAuthenticatedMock);
   }
 
   @When("^I get my balance of bitcoins$")
   public void I_get_my_balance_of_bitcoins() throws Throwable {
-    serviceResponse = coinbaseClient.getBalance();
+    serviceResponse = coinbaseClientAuthenticatedMock.getBalance();
   }
 
   @Then("^I see that a balance is returned$")
@@ -53,18 +54,18 @@ public class CoinbaseClientSteps {
 
   @When("^I get my bitcoin recieve address$")
   public void I_get_my_bitcoin_recieve_address() throws Throwable {
-    serviceResponse = coinbaseClient.getReceiveAddress();
+    serviceResponse = coinbaseClientAuthenticatedMock.getReceiveAddress();
   }
 
   @Then("^I see that a receive address is returned$")
   public void I_see_that_a_receive_address_is_returned() throws Throwable {
-    assertThat(serviceResponse, containsString("\"success\":true"));
+    assertThat(serviceResponse, containsString("success"));
     assertThat(serviceResponse, containsString("address"));
   }
 
   @When("^I get my bitcoin addresses$")
   public void I_get_my_bitcoin_addresses() throws Throwable {
-    serviceResponse = coinbaseClient.getAddresses();
+    serviceResponse = coinbaseClientAuthenticatedMock.getAddresses();
   }
 
   @Then("^I see that my addresses are returned$")
@@ -75,7 +76,7 @@ public class CoinbaseClientSteps {
 
   @When("^I get my contacts$")
   public void I_get_my_contacts() throws Throwable {
-    serviceResponse = coinbaseClient.getContacts();
+    serviceResponse = coinbaseClientAuthenticatedMock.getContacts();
   }
 
   @Then("^I see that my contacts are returned$")
@@ -86,7 +87,7 @@ public class CoinbaseClientSteps {
 
   @When("^I get supported currencies$")
   public void I_get_supported_currencies() throws Throwable {
-    serviceResponse = coinbaseClient.getCurrencies();
+    serviceResponse = coinbaseClientAuthenticatedMock.getCurrencies();
   }
 
   @Then("^I see that the supported currencies are returned$")
@@ -96,7 +97,7 @@ public class CoinbaseClientSteps {
 
   @When("^I get exchange rates$")
   public void I_get_exchange_rates() throws Throwable {
-    serviceResponse = coinbaseClient.getExchangeRates();
+    serviceResponse = coinbaseClientAuthenticatedMock.getExchangeRates();
   }
 
   @Then("^I see that exchange rates are returned$")
@@ -106,7 +107,7 @@ public class CoinbaseClientSteps {
 
   @When("^I get merchant orders$")
   public void I_get_merchant_orders() throws Throwable {
-    serviceResponse = coinbaseClient.getOrders();
+    serviceResponse = coinbaseClientAuthenticatedMock.getOrders();
   }
 
   @Then("^I see that merchant orders are returned$")
@@ -118,27 +119,29 @@ public class CoinbaseClientSteps {
   @When("^I get an individual order$")
   public void I_get_an_individual_order() throws Throwable {
     Integer orderId = 0;
-    serviceResponse = coinbaseClient.getInvidualOrder(orderId);
+    serviceResponse = coinbaseClientAuthenticatedMock.getInvidualOrder(orderId);
   }
 
   @Then("^I see that an individual order is returned$")
   public void I_see_that_an_individual_order_is_returned() throws Throwable {
-    assertThat(serviceResponse, containsString("Order not found with that id"));
+    assertThat(serviceResponse, containsString("order"));
+    assertThat(serviceResponse, containsString("created_at"));
   }
 
   @When("^I get the bitcoin buy price$")
   public void I_get_the_bitcoin_buy_price() throws Throwable {
-    serviceResponse = coinbaseClient.getPriceToBuy();
+    serviceResponse = coinbaseClientAuthenticatedMock.getPriceToBuy();
   }
 
   @Then("^I see that the bitcoin buy price is returned$")
   public void I_see_that_the_bitcoin_buy_price_is_returned() throws Throwable {
-    assertThat(serviceResponse, containsString("amount"));
+    assertThat(serviceResponse, containsString("subtotal"));
+    assertThat(serviceResponse, containsString("fees"));
   }
 
   @When("^I get the bitcoin sell price$")
   public void I_get_the_bitcoin_sell_price() throws Throwable {
-    serviceResponse = coinbaseClient.getPriceToSell();
+    serviceResponse = coinbaseClientAuthenticatedMock.getPriceToSell();
   }
 
   @Then("^I see that the bitcoin sell price is returned$")
@@ -148,43 +151,55 @@ public class CoinbaseClientSteps {
 
   @When("^I get a user's recent transactions$")
   public void I_get_a_user_s_recent_transactions() throws Throwable {
-    serviceResponse = coinbaseClient.getRecentTransactions();
+    serviceResponse = coinbaseClientAuthenticatedMock.getRecentTransactions();
   }
 
   @Then("^I see that a user's recent transactions are returned$")
   public void I_see_that_a_user_s_recent_transactions_are_returned() throws Throwable {
-    assertThat(serviceResponse, containsString("amount"));
+    assertThat(serviceResponse, containsString("current_user"));
+    assertThat(serviceResponse, containsString("balance"));
+    assertThat(serviceResponse, containsString("total_count"));
+    assertThat(serviceResponse, containsString("transactions"));
   }
 
   @When("^I get a user's individual transaction$")
   public void I_get_a_user_s_individual_transaction() throws Throwable {
     Integer transactionId = 0;
-    serviceResponse = coinbaseClient.getIndividualTransaction(transactionId);
+    serviceResponse = coinbaseClientAuthenticatedMock.getIndividualTransaction(transactionId);
   }
 
   @Then("^I see that a user's individual transaction is returned$")
   public void I_see_that_a_user_s_individual_transaction_is_returned() throws Throwable {
-    assertThat(serviceResponse, containsString("Transaction not found with that id"));
+    assertThat(serviceResponse, containsString("transaction"));
+    assertThat(serviceResponse, containsString("created_at"));
+    assertThat(serviceResponse, containsString("sender"));
+    assertThat(serviceResponse, containsString("recipient"));
   }
 
   @When("^I get a user's recent buys and sells$")
   public void I_get_a_user_s_recent_buys_and_sells() throws Throwable {
-    serviceResponse = coinbaseClient.getRecentBuysAndSells();
+    serviceResponse = coinbaseClientAuthenticatedMock.getRecentBuysAndSells();
   }
 
   @Then("^I see that a user's recent buys and sells are returned$")
   public void I_see_that_a_user_s_recent_buys_and_sells_are_returned() throws Throwable {
-    assertThat(serviceResponse, containsString("amount"));
+    assertThat(serviceResponse, containsString("transfers"));
+    assertThat(serviceResponse, containsString("status"));
+    assertThat(serviceResponse, containsString("total_count"));
   }
 
   @When("^I get the current user with account settings$")
   public void I_get_the_current_user_with_account_settings() throws Throwable {
-    serviceResponse = coinbaseClient.getCurrentUser();
+    serviceResponse = coinbaseClientAuthenticatedMock.getCurrentUser();
   }
 
   @Then("^I see that the current user with account settings is returned$")
   public void I_see_that_the_current_user_with_account_settings_is_returned() throws Throwable {
-    assertThat(serviceResponse, containsString("amount"));
+    assertThat(serviceResponse, containsString("users"));
+    assertThat(serviceResponse, containsString("user"));
+    assertThat(serviceResponse, containsString("email"));
+    assertThat(serviceResponse, containsString("buy_level"));
+    assertThat(serviceResponse, containsString("sell_level"));
   }
 
   @When("^I send money to bitcoin address \"([^\"]*)\"$")
@@ -195,7 +210,7 @@ public class CoinbaseClientSteps {
     notes = "Sending " + amountValue + " test.";
 
     TransactionRequest transactionRequest = new TransactionRequest(bitcoinAddress, amountValue, notes);
-    sendMoneyResponse = coinbaseClient.sendMoney(transactionRequest);
+    sendMoneyResponse = coinbaseClientAuthenticatedMock.sendMoney(transactionRequest);
 
   }
 
@@ -205,15 +220,15 @@ public class CoinbaseClientSteps {
     // assertThat(serviceResponse,
     // containsString("\"errors\":[\"This transaction"));
 
-    assertTrue(!sendMoneyResponse.getSuccess());
+    assertTrue(sendMoneyResponse.getSuccess());
     // assertTrue(sendMoneyResponse.getErrors() == null);
 
     // SendMoneyResponse sendMoneyResponse =
     // responseDeserializer.deserialize(serviceResponse);
 
     // assertEquals("false", sendMoneyResponse.getSuccess());
-    assertThat(sendMoneyResponse.getErrors()[0], containsString("This transaction amount is below the current minimum"));
-    assertEquals(notes, sendMoneyResponse.getTransaction().getNotes());
+//    assertThat(sendMoneyResponse.getErrors()[0], containsString("This transaction amount is below the current minimum"));
+    assertEquals("Sample transaction for you!", sendMoneyResponse.getTransaction().getNotes());
     // assertEquals("0.00000000",
     // sendMoneyResponse.getTransaction().getAmount().getAmount());
     // assertEquals(AMOUNT_VALUE,
@@ -231,13 +246,15 @@ public class CoinbaseClientSteps {
     
     BuyRequest buyRequest = new BuyRequest(bitcoinQty);
 
-    buyResponse = coinbaseClient.buy(buyRequest);
+    buyResponse = coinbaseClientAuthenticatedMock.buy(buyRequest);
   }
 
   @Then("^I see that the buy is successful$")
   public void I_see_that_the_buy_is_successful() throws Throwable {
     
-    assertTrue(!buyResponse.getSuccess());
+    assertTrue(buyResponse.getSuccess());
+    assertEquals("Buy", buyResponse.getTransfer().getType());
+    assertEquals("created", buyResponse.getTransfer().getStatus());
     
   }
 

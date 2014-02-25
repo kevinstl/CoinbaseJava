@@ -5,7 +5,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import com.coinbase.java.client.CoinbaseClient;
-import com.coinbase.java.client.CoinbaseClientImpl;
+import com.coinbase.java.client.CoinbaseClient;
 
 @Configuration
 public class SpringConfigTests {
@@ -14,7 +14,7 @@ public class SpringConfigTests {
   
   @Bean
   public CoinbaseClient coinbaseClient(){
-    CoinbaseClient coinbaseClient = new CoinbaseClientImpl(apiKey);
+    CoinbaseClient coinbaseClient = new CoinbaseClient(apiKey);
     return coinbaseClient;
   }
 

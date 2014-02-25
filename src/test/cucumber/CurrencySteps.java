@@ -6,7 +6,8 @@ import java.util.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.coinbase.java.client.CoinbaseClient;
-import com.coinbase.java.client.CoinbaseClientImpl;
+import com.coinbase.java.client.CoinbaseClient;
+import com.coinbase.java.client.CoinbaseClientAuthenticatedMock;
 import com.coinbase.java.domain.deserializer.ResponseDeserializer;
 import com.coinbase.java.domain.response.CurrencyExchangeRateResponse;
 
@@ -20,7 +21,7 @@ public class CurrencySteps {
   private static Logger logger = Logger.getLogger(CurrencySteps.class.getName());
   
   @Autowired
-  private CoinbaseClient coinbaseClient;
+  private CoinbaseClientAuthenticatedMock coinbaseClientAuthenticatedMock;
   
   @Autowired
   private ResponseDeserializer responseDeserializer; 
@@ -37,7 +38,7 @@ public class CurrencySteps {
 
   @When("^I request the value in BTC for my USD$")
   public void I_request_the_value_in_BTC_for_my_USD() throws Throwable {
-      exchangeRates = coinbaseClient.getExchangeRates();
+      exchangeRates = coinbaseClientAuthenticatedMock.getExchangeRates();
       
       CurrencyExchangeRateResponse currencyExchangeRateResponse = responseDeserializer.deserializeCurrencyExchangeRateResponse(exchangeRates);
       

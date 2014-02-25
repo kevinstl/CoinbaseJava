@@ -37,7 +37,7 @@ public class CoinbaseHttpClientTest {
   public void setup() {
     MockitoAnnotations.initMocks(this);
     
-    testObject = new CoinbaseHttpClientImpl(httpClient);
+    testObject = new CoinbaseHttpClient(httpClient);
   }
   
   @Test
@@ -47,7 +47,7 @@ public class CoinbaseHttpClientTest {
     String urlString = "http://anyUrl.com";
     String expectedStringResponse = setupHttpRequest();
     
-    String actualStringResponse = testObject.getResponseStringFromHttpGet(urlString);
+    String actualStringResponse = testObject.executeGet(urlString);
     
     assertEquals(expectedStringResponse, actualStringResponse);
   }
@@ -61,7 +61,7 @@ public class CoinbaseHttpClientTest {
     String expectedStringResponse = setupHttpRequest();
     String payload = "";
     
-    String actualStringResponse = testObject.getResponseStringFromHttpPost(urlString, payload);
+    String actualStringResponse = testObject.executePost(urlString, payload);
     
     assertEquals(expectedStringResponse, actualStringResponse);
   }
@@ -73,7 +73,7 @@ public class CoinbaseHttpClientTest {
     String urlString = "http://anyUrl.com";
     String expectedStringResponse = setupHttpRequest();
     
-    String actualStringResponse = testObject.getResponseStringFromHttpDelete(urlString);
+    String actualStringResponse = testObject.executeDelete(urlString);
     
     assertEquals(expectedStringResponse, actualStringResponse);
   }

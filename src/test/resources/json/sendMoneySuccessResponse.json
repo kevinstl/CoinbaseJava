@@ -6,7 +6,7 @@
       "hsh" : null,
       "id" : "001",
       "notes" : "Sending 0.001 test.",
-      "recipient_address" : "157azQfjWP6EKHUuP38epEqENzHuxKdWrv",
+      "recipient_address" : "123456aaabbb",
       "request" : false,
       "sender" : { "email" : "test@hotmail.com",
           "id" : "0011",
