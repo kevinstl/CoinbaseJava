@@ -18,7 +18,6 @@ coinbaseClient.buy(buyRequest);
 
 
 //Send Bitcoin
-
 TransactionRequest transactionRequest = new TransactionRequest("bitcoinAddress", "0.123", "Transaction Note");
 coinbaseClient.sendMoney(transactionRequest);
 ```
