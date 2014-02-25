@@ -6,7 +6,7 @@ Coinbase API Java Client Library
 
 ### Usage
 
-CoinbaseClient contains all api calls.
+CoinbaseClient class contains all api calls.
 
 ```
 CoinbaseClient coinbaseClient = new CoinbaseClient(apiKey);
