@@ -1,12 +1,14 @@
 package com.coinbase.java.domain.request;
 
+import java.math.BigDecimal;
+
 
 public class TransactionRequest {
   
   private Transaction transaction;
 
   
-  public TransactionRequest(String to, String amount, String notes) {
+  public TransactionRequest(String to, BigDecimal amount, String notes) {
     super();
     this.transaction = new Transaction(to, amount, notes);
   }
@@ -14,10 +16,10 @@ public class TransactionRequest {
   public class Transaction {
     
     private String to;
-    private String amount;
+    private BigDecimal amount;
     private String notes;
     
-    public Transaction(String to, String amount, String notes) {
+    public Transaction(String to, BigDecimal amount, String notes) {
       super();
       this.to = to;
       this.setAmount(amount);
@@ -40,11 +42,11 @@ public class TransactionRequest {
       this.notes = notes;
     }
 
-    public String getAmount() {
+    public BigDecimal getAmount() {
       return amount;
     }
 
-    public void setAmount(String amount) {
+    public void setAmount(BigDecimal amount) {
       this.amount = amount;
     }
     

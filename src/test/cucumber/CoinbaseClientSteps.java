@@ -209,7 +209,7 @@ public class CoinbaseClientSteps {
 
     notes = "Sending " + amountValue + " test.";
 
-    TransactionRequest transactionRequest = new TransactionRequest(bitcoinAddress, amountValue, notes);
+    TransactionRequest transactionRequest = new TransactionRequest(bitcoinAddress, new BigDecimal(amountValue), notes);
     sendMoneyResponse = coinbaseClientAuthenticatedMock.sendMoney(transactionRequest);
 
   }
