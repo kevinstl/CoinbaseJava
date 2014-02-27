@@ -40,6 +40,19 @@ public class CoinbaseClientSteps {
   public void I_have_an_instance_of_CoinbaseClient() throws Throwable {
     assertNotNull(coinbaseClientAuthenticatedMock);
   }
+  
+  @When("^I get account changes$")
+  public void I_get_account_changes() throws Throwable {
+    serviceResponse = coinbaseClientAuthenticatedMock.getAccountChanges();
+  }
+
+  @Then("^I see that account changes are returned$")
+  public void I_see_that_account_changes_are_returned() throws Throwable {
+    assertThat(serviceResponse, containsString("current_user"));
+    assertThat(serviceResponse, containsString("balance"));
+    assertThat(serviceResponse, containsString("account_changes"));
+    assertThat(serviceResponse, containsString("total_count"));
+  }
 
   @When("^I get my balance of bitcoins$")
   public void I_get_my_balance_of_bitcoins() throws Throwable {

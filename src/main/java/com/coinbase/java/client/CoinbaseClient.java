@@ -25,6 +25,7 @@ public class CoinbaseClient {
 
   public static final String INVALID_API_KEY = "Invalid api_key";
   public static final String FORWARD_SLASH = "/";
+  public static final String ACCOUNT_CHANGES = "/account_changes";
   public static final String CANCEL_REQUEST = "/cancel_request";
   public static final String GENERATE_RECEIVE_ADDRESS = "/account/generate_receive_address";
   public static final String USERS = "/users";
@@ -76,6 +77,14 @@ public class CoinbaseClient {
 
   public CoinbaseClient(String apiKey) {
     this.apiKey = apiKey;
+  }
+  
+  public String getAccountChanges() throws ClientProtocolException, IOException {
+    String operation = ACCOUNT_CHANGES;
+    
+    String responseString = httpGet(operation);
+    
+    return responseString;
   }
 
   public String getBalance() throws ClientProtocolException, IOException {

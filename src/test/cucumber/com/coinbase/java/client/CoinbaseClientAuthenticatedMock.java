@@ -28,6 +28,16 @@ public class CoinbaseClientAuthenticatedMock extends CoinbaseClient {
   }
   
   @Override
+  public String getAccountChanges() throws IOException{
+    try{
+      return super.getAccountChanges();
+    }
+    catch(CoinbaseException e){
+      return returnExpectedStringResponse(e, "getAccountChangesSuccess.json");
+    }
+  }
+  
+  @Override
   public String getBalance() throws IOException{
     try{
       return super.getBalance();

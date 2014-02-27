@@ -1,6 +1,13 @@
 @CLIENT_OPERATIONS
 Feature: clientOperations - Execute Coinbase client operations.
 
+@WIP
+Scenario: I am able to get all related changes to an account
+
+Given I have an instance of CoinbaseClient
+When I get account changes
+Then I see that account changes are returned
+
 
 Scenario: I am able to get my balance of bitcoins
 
@@ -114,7 +121,7 @@ When I buy "0.0000000001" bitcoin
 Then I see that the buy is successful
 
 
-@WIP
+
 Scenario: I am able to find the current value in BTC for a specified amount of USD
 
 Given I want to find the value in BTC of "10" USD
