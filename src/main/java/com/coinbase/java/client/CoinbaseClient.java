@@ -74,6 +74,7 @@ public class CoinbaseClient {
 
   private CoinbaseClient() {
   }
+  
 
   public CoinbaseClient(String apiKey) {
     this.apiKey = apiKey;

@@ -6,7 +6,6 @@ import java.math.BigDecimal;
 public class TransactionRequest {
   
   private Transaction transaction;
-
   
   public TransactionRequest(String to, BigDecimal amount, String notes) {
     super();

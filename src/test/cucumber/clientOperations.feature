@@ -1,7 +1,7 @@
 @CLIENT_OPERATIONS
 Feature: clientOperations - Execute Coinbase client operations.
 
-@WIP
+
 Scenario: I am able to get all related changes to an account
 
 Given I have an instance of CoinbaseClient

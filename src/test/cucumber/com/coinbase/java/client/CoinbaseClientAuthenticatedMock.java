@@ -27,6 +27,7 @@ public class CoinbaseClientAuthenticatedMock extends CoinbaseClient {
     super(apiKey);
   }
   
+  
   @Override
   public String getAccountChanges() throws IOException{
     try{

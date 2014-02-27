@@ -36,6 +36,7 @@ public class CoinbaseClientSteps {
   private SendMoneyResponse sendMoneyResponse;
   private BuyResponse buyResponse;
 
+  
   @Given("^I have an instance of CoinbaseClient$")
   public void I_have_an_instance_of_CoinbaseClient() throws Throwable {
     assertNotNull(coinbaseClientAuthenticatedMock);
