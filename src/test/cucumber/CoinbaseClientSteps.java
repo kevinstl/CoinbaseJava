@@ -12,6 +12,8 @@ import com.coinbase.java.client.CoinbaseClient;
 import com.coinbase.java.client.CoinbaseClientAuthenticatedMock;
 import com.coinbase.java.domain.deserializer.ResponseDeserializer;
 import com.coinbase.java.domain.request.BuyRequest;
+import com.coinbase.java.domain.request.OauthApplication;
+import com.coinbase.java.domain.request.OauthApplication.Application;
 import com.coinbase.java.domain.request.TransactionRequest;
 import com.coinbase.java.domain.response.BuyResponse;
 import com.coinbase.java.domain.response.SendMoneyResponse;
@@ -88,6 +90,45 @@ public class CoinbaseClientSteps {
     assertThat(serviceResponse, containsString("address"));
   }
 
+  @When("^I get my oauth applications$")
+  public void I_get_my_oauth_applications() throws Throwable {
+    serviceResponse = coinbaseClientAuthenticatedMock.getOauthApplications();
+  }
+
+  @Then("^I see that my applications are returned$")
+  public void I_see_that_my_applications_are_returned() throws Throwable {
+    assertThat(serviceResponse, containsString("applications"));
+  }
+  
+  @When("^I get an individual oauth application$")
+  public void I_get_an_individual_oauth_application() throws Throwable {
+    serviceResponse = coinbaseClientAuthenticatedMock.getOauthIndividualApplication(1);
+  }
+
+  @Then("^I see that my application is returned$")
+  public void I_see_that_my_application_is_returned() throws Throwable {
+    assertThat(serviceResponse, containsString("application"));
+    assertThat(serviceResponse, containsString("redirect_uri"));
+  }
+  
+  @When("^I create an oauth application$")
+  public void I_create_an_oauth_application() throws Throwable {
+    
+    String name = "test app 1";
+    String redirectUri = "http://testapp1.com";
+    
+    OauthApplication oauthApplication = new OauthApplication(name, redirectUri);
+    
+    serviceResponse = coinbaseClientAuthenticatedMock.postCreateOauthApplication(oauthApplication);
+  }
+
+  @Then("^I see that my newly created application is returned$")
+  public void I_see_that_my_newly_created_application_is_returned() throws Throwable {
+    assertThat(serviceResponse, containsString("success"));
+    assertThat(serviceResponse, containsString("application"));
+    assertThat(serviceResponse, containsString("redirect_uri"));
+  }
+  
   @When("^I get my contacts$")
   public void I_get_my_contacts() throws Throwable {
     serviceResponse = coinbaseClientAuthenticatedMock.getContacts();

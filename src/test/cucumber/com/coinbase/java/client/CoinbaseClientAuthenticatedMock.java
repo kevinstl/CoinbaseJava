@@ -9,6 +9,7 @@ import org.apache.http.client.ClientProtocolException;
 import org.springframework.stereotype.Component;
 
 import com.coinbase.java.domain.request.BuyRequest;
+import com.coinbase.java.domain.request.OauthApplication;
 import com.coinbase.java.domain.request.TransactionRequest;
 import com.coinbase.java.domain.response.BuyResponse;
 import com.coinbase.java.domain.response.ExchangeRatesResponse;
@@ -65,6 +66,36 @@ public class CoinbaseClientAuthenticatedMock extends CoinbaseClient {
     }
     catch(CoinbaseException e){
       return returnExpectedStringResponse(e, "getAddressesSuccess.json");
+    }
+  }
+  
+  @Override
+  public String getOauthApplications() throws ClientProtocolException, IOException {
+    try{
+      return super.getOauthApplications();
+    }
+    catch(CoinbaseException e){
+      return returnExpectedStringResponse(e, "getOauthApplications.json");
+    }
+  }
+  
+  @Override
+  public String getOauthIndividualApplication(Integer applicationId) throws ClientProtocolException, IOException {
+    try{
+      return super.getOauthIndividualApplication(applicationId);
+    }
+    catch(CoinbaseException e){
+      return returnExpectedStringResponse(e, "getOauthIndividualApplication.json");
+    }
+  }
+  
+  @Override
+  public String postCreateOauthApplication(OauthApplication oauthApplication) throws ClientProtocolException, IOException {
+    try{
+      return super.postCreateOauthApplication(oauthApplication);
+    }
+    catch(CoinbaseException e){
+      return returnExpectedStringResponse(e, "postCreateOauthApplication.json");
     }
   }
 

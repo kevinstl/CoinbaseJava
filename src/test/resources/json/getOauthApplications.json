@@ -1,0 +1,14 @@
+{
+  "applications": [
+    {
+      "id": "52fe8cf2137f733087000002",
+      "created_at": "2014-02-14T13:38:58-08:00",
+      "name": "Dummy",
+      "redirect_uri": "http://example.com",
+      "num_users": 0
+    }
+  ],
+  "total_count": 1,
+  "num_pages": 1,
+  "current_page": 1
+}

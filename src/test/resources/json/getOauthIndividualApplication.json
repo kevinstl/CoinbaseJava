@@ -1,0 +1,9 @@
+{
+  "application": {
+    "id": "5302ebdb137f73dcf7000047",
+    "created_at": "2014-02-17T21:12:59-08:00",
+    "name": "Test App 3",
+    "redirect_uri": "http://example.com",
+    "num_users": 0
+  }
+}

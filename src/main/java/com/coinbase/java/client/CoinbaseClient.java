@@ -12,6 +12,7 @@ import org.springframework.stereotype.Component;
 
 import com.coinbase.java.domain.deserializer.ResponseDeserializer;
 import com.coinbase.java.domain.request.BuyRequest;
+import com.coinbase.java.domain.request.OauthApplication;
 import com.coinbase.java.domain.request.TransactionRequest;
 import com.coinbase.java.domain.response.BuyResponse;
 import com.coinbase.java.domain.response.ExchangeRatesResponse;
@@ -37,9 +38,13 @@ public class CoinbaseClient {
   public static final String EXCHANGE_RATES = "/exchange_rates";
   public static final String CURRENCIES = "/currencies";
   public static final String CONTACTS = "/contacts";
-  public static final String ADDRESSES = "/addresses";
-  public static final String RECEIVE_ADDRESS = "/account/receive_address";
   public static final String BALANCE = "/account/balance";
+  public static final String RECEIVE_ADDRESS = "/account/receive_address";
+  public static final String ADDRESSES = "/addresses";
+  
+  public static final String OAUTH = "/oauth";  
+  public static final String OAUTH_APPLICATIONS = OAUTH + "/applications";  
+  
   public static final String BUYS = "/buys";
 
   private static final String API_KEY = "?api_key=";
@@ -109,6 +114,33 @@ public class CoinbaseClient {
 
     String responseString = httpGet(operation);
 
+    return responseString;
+  }
+  
+  public String getOauthApplications() throws ClientProtocolException, IOException {
+    String operation = OAUTH_APPLICATIONS;
+    
+    String responseString = httpGet(operation);
+    
+    return responseString;
+  }
+  
+  public String getOauthIndividualApplication(Integer applicationId) throws ClientProtocolException, IOException {
+    String operation = OAUTH_APPLICATIONS + "/" + applicationId;
+    
+    String responseString = httpGet(operation);
+    
+    return responseString;
+  }
+
+  
+  public String postCreateOauthApplication(OauthApplication oauthApplication) throws ClientProtocolException, IOException {
+    String operation = OAUTH_APPLICATIONS;
+    
+    Gson gson = new Gson();
+    String payload = gson.toJson(oauthApplication);
+    String responseString = httpPost(operation, payload);
+    
     return responseString;
   }
 

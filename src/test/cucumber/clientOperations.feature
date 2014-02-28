@@ -30,6 +30,28 @@ When I get my bitcoin addresses
 Then I see that my addresses are returned
 
 
+
+Scenario: I am able to get oauth applications on this account
+
+Given I have an instance of CoinbaseClient
+When I get my oauth applications
+Then I see that my applications are returned
+
+
+Scenario: I am able to get an individual oauth application on this account
+
+Given I have an instance of CoinbaseClient
+When I get an individual oauth application
+Then I see that my application is returned
+
+
+@WIP
+Scenario: I am able to create an oauth application
+
+Given I have an instance of CoinbaseClient
+When I create an oauth application
+Then I see that my newly created application is returned
+
 Scenario: I am able to get emails(contacts) previously used
 
 Given I have an instance of CoinbaseClient
