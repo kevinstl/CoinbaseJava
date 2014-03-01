@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.coinbase.java.client.CoinbaseClient;
 import com.coinbase.java.client.CoinbaseClientAuthenticatedMock;
 import com.coinbase.java.domain.deserializer.ResponseDeserializer;
+import com.coinbase.java.domain.request.ButtonRequest;
 import com.coinbase.java.domain.request.BuyRequest;
 import com.coinbase.java.domain.request.OauthApplication;
 import com.coinbase.java.domain.request.OauthApplication.Application;
@@ -128,6 +129,54 @@ public class CoinbaseClientSteps {
     assertThat(serviceResponse, containsString("application"));
     assertThat(serviceResponse, containsString("redirect_uri"));
   }
+  
+  @When("^I get authorizations$")
+  public void I_get_authorizations() throws Throwable {
+    serviceResponse = coinbaseClientAuthenticatedMock.getAuthorization();
+  }
+
+  @Then("^I see that my authorizations are returned$")
+  public void I_see_that_my_authorizations_are_returned() throws Throwable {
+    assertThat(serviceResponse, containsString("success"));
+  }
+  
+  @When("^I create a payment object$")
+  public void I_create_a_payment_object() throws Throwable {
+    
+    String name = null;
+    String type = null;
+    String price_string = null;
+    String price_currency_iso = null;
+    String custom = null;
+    String callback_url = null;
+    String description = null;
+    String style = null;
+    Boolean include_email = null;
+    
+    ButtonRequest buttonRequest = new ButtonRequest(name, type, price_string, price_currency_iso, custom, callback_url, description, style, include_email);
+    
+    serviceResponse = coinbaseClientAuthenticatedMock.postCreatePaymentObject(buttonRequest);
+  }
+
+  @Then("^I see that my newly created payment object is returned$")
+  public void I_see_that_my_newly_created_payment_object_is_returned() throws Throwable {
+    assertThat(serviceResponse, containsString("success"));
+    assertThat(serviceResponse, containsString("button"));
+  }
+  
+  
+  @When("^I create an order with an object id$")
+  public void I_create_an_order_with_an_object_id() throws Throwable {
+    String objectId = "123a";
+    serviceResponse = coinbaseClientAuthenticatedMock.postCreateOrder(objectId);
+  }
+
+  @Then("^I see that my order creation is successful$")
+  public void I_see_that_my_order_creation_is_successful() throws Throwable {
+    assertThat(serviceResponse, containsString("success"));
+    assertThat(serviceResponse, containsString("order"));
+  }
+  
   
   @When("^I get my contacts$")
   public void I_get_my_contacts() throws Throwable {

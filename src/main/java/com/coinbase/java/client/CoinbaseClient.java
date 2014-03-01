@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import com.coinbase.java.domain.deserializer.ResponseDeserializer;
+import com.coinbase.java.domain.request.ButtonRequest;
 import com.coinbase.java.domain.request.BuyRequest;
 import com.coinbase.java.domain.request.OauthApplication;
 import com.coinbase.java.domain.request.TransactionRequest;
@@ -32,21 +33,30 @@ public class CoinbaseClient {
   public static final String USERS = "/users";
   public static final String TRANSFERS = "/transfers";
   public static final String TRANSACTIONS = "/transactions";
-  public static final String PRICES_SELL = "/prices/sell";
-  public static final String PRICES_BUY = "/prices/buy";
-  public static final String ORDERS = "/orders";
-  public static final String EXCHANGE_RATES = "/exchange_rates";
-  public static final String CURRENCIES = "/currencies";
-  public static final String CONTACTS = "/contacts";
   public static final String BALANCE = "/account/balance";
   public static final String RECEIVE_ADDRESS = "/account/receive_address";
   public static final String ADDRESSES = "/addresses";
   
   public static final String OAUTH = "/oauth";  
-  public static final String OAUTH_APPLICATIONS = OAUTH + "/applications";  
+  public static final String OAUTH_APPLICATIONS = OAUTH + "/applications";
+  
+  public static final String AUTHORIZATION = "/authorization";
+  
+  private static final String BUTTONS = "/buttons";
+  private static final String CREATE_ORDER = "/create_order";
   
   public static final String BUYS = "/buys";
+  
+  public static final String CONTACTS = "/contacts";
+  
+  public static final String CURRENCIES = "/currencies";
+  public static final String EXCHANGE_RATES = "/exchange_rates";
 
+  public static final String ORDERS = "/orders";
+  
+  public static final String PRICES_BUY = "/prices/buy";
+  public static final String PRICES_SELL = "/prices/sell";
+  
   private static final String API_KEY = "?api_key=";
 
   private static final String HTTPS_COINBASE_COM_API_V1_ACCOUNT = "https://coinbase.com/api/v1";
@@ -132,7 +142,6 @@ public class CoinbaseClient {
     
     return responseString;
   }
-
   
   public String postCreateOauthApplication(OauthApplication oauthApplication) throws ClientProtocolException, IOException {
     String operation = OAUTH_APPLICATIONS;
@@ -143,13 +152,32 @@ public class CoinbaseClient {
     
     return responseString;
   }
+  
+  public String getAuthorization() throws ClientProtocolException, IOException {
+    String operation = AUTHORIZATION;
+    
+    String responseString = httpGet(operation);
+    
+    return responseString;
+  }
 
-  public String getPaymentButton() throws ClientProtocolException, IOException {
-    String operation = ADDRESSES;
-
-    String payload = null;
+  
+  public String postCreatePaymentObject(ButtonRequest buttonRequest) throws ClientProtocolException, IOException {
+    String operation = BUTTONS;
+    
+    Gson gson = new Gson();
+    String payload = gson.toJson(buttonRequest);
     String responseString = httpPost(operation, payload);
-
+    
+    return responseString;
+  }
+  
+  
+  public String postCreateOrder(String objectId) throws ClientProtocolException, IOException {
+    String operation = BUTTONS + "/" + objectId + CREATE_ORDER;
+    
+    String responseString = httpPost(operation, null);
+    
     return responseString;
   }
 

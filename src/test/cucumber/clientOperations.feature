@@ -45,12 +45,40 @@ When I get an individual oauth application
 Then I see that my application is returned
 
 
-@WIP
 Scenario: I am able to create an oauth application
 
 Given I have an instance of CoinbaseClient
 When I create an oauth application
 Then I see that my newly created application is returned
+
+
+Scenario: I am able to create a payment object
+
+Given I have an instance of CoinbaseClient
+When I create a payment object
+Then I see that my newly created payment object is returned
+
+
+Scenario: I am able to create an order with an object id
+
+Given I have an instance of CoinbaseClient
+When I create an order with an object id
+Then I see that my order creation is successful
+
+
+Scenario: I am able to create a new payment
+
+Given I have an instance of CoinbaseClient
+When I get authorizations
+Then I see that my authorizations are returned
+
+
+Scenario: I am able to get information on your application's access to the user's Coinbase account
+
+Given I have an instance of CoinbaseClient
+When I get authorizations
+Then I see that my authorizations are returned
+
 
 Scenario: I am able to get emails(contacts) previously used
 

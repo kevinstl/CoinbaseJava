@@ -21,112 +21,109 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
-public class CoinbaseHttpClient{
-  
+public class CoinbaseHttpClient {
+
   private static Logger logger = Logger.getLogger(CoinbaseHttpClient.class.getName());
 
   private HttpClient coinbaseApacheHttpClient;
-  
+
   @Autowired
   public CoinbaseHttpClient(HttpClient coinbaseApacheHttpClient) {
     this.coinbaseApacheHttpClient = coinbaseApacheHttpClient;
   }
-  
-  public String executeGet(String urlString)
-      throws IOException, ClientProtocolException {
-    
+
+  public String executeGet(String urlString) throws IOException, ClientProtocolException {
+
     HttpGet httpGet = new HttpGet(urlString);
-    
+
     String responseString = executeHttpUriRequest(httpGet, null);
-    
-    return responseString;
-  }
-  
-  public String executePost(String urlString, String payload)
-      throws IOException, ClientProtocolException {
-    
-    
-    logger.info("payload: " + payload);
-    
-    HttpPost httpPost = new HttpPost(urlString);
-    
-    
-    StringEntity stringEntity = new StringEntity(payload);
-    
-    httpPost.setEntity(stringEntity);
-    
-    String responseString = executeHttpUriRequest(httpPost, "application/json");
-    
-    return responseString;
-  }
-  
-  public String executeDelete(String urlString)
-      throws IOException, ClientProtocolException {
-    HttpDelete httpDelete = new HttpDelete(urlString);
-    
-    String responseString = executeHttpUriRequest(httpDelete, null);
-    
+
     return responseString;
   }
 
-  private String executeHttpUriRequest(HttpUriRequest  httpUriRequest, String contentType) throws IOException,
-      ClientProtocolException {
-    
-    if(StringUtils.isNotBlank(contentType)){
+  public String executePost(String urlString, String payload) throws IOException, ClientProtocolException {
+
+    logger.info("payload: " + payload);
+
+    HttpPost httpPost = new HttpPost(urlString);
+
+    if (payload != null) {
+      StringEntity stringEntity = new StringEntity(payload);
+      httpPost.setEntity(stringEntity);
+    }
+
+    String responseString = executeHttpUriRequest(httpPost, "application/json");
+
+    return responseString;
+  }
+
+  public String executeDelete(String urlString) throws IOException, ClientProtocolException {
+    HttpDelete httpDelete = new HttpDelete(urlString);
+
+    String responseString = executeHttpUriRequest(httpDelete, null);
+
+    return responseString;
+  }
+
+  private String executeHttpUriRequest(HttpUriRequest httpUriRequest, String contentType) throws IOException, ClientProtocolException {
+
+    if (StringUtils.isNotBlank(contentType)) {
       httpUriRequest.setHeader("content-type", contentType);
     }
-    
+
     String responseString = "";
 
     HttpResponse httpResponse = coinbaseApacheHttpClient.execute(httpUriRequest);
 
     logger.info("httpResponse.toString(): " + httpResponse.toString());
-    
+
     // Get hold of the response entity
     HttpEntity entity = httpResponse.getEntity();
 
     // If the response does not enclose an entity, there is no need
     // to worry about connection release
     if (entity != null) {
-        InputStream instream = entity.getContent();
-        try {
+      InputStream instream = entity.getContent();
+      try {
 
-            BufferedReader reader = new BufferedReader(
-                    new InputStreamReader(instream));
-            // do something useful with the response
-//            responseString = reader.readLine();
-            
-            StringBuilder stringBuilder = new StringBuilder();
-            String line;
-            while ((line = reader.readLine()) != null) {
-              stringBuilder.append(line);
-            }
-            responseString = stringBuilder.toString();
-//            System.out.println(responseString);
-            logger.log(Level.FINEST, responseString);
+        BufferedReader reader = new BufferedReader(new InputStreamReader(instream));
+        // do something useful with the response
+        // responseString = reader.readLine();
 
-        } catch (IOException ex) {
-
-            // In case of an IOException the connection will be released
-            // back to the connection manager automatically
-            throw ex;
-
-        } catch (RuntimeException ex) {
-
-            // In case of an unexpected exception you may want to abort
-            // the HTTP request in order to shut down the underlying
-            // connection and release it back to the connection manager.
-          httpUriRequest.abort();
-            throw ex;
-
-        } finally {
-
-            // Closing the input stream will trigger connection release
-            instream.close();
-
+        StringBuilder stringBuilder = new StringBuilder();
+        String line;
+        while ((line = reader.readLine()) != null) {
+          stringBuilder.append(line);
         }
+        responseString = stringBuilder.toString();
+        // System.out.println(responseString);
+        logger.log(Level.FINEST, responseString);
 
-        //shutdown();
+      }
+      catch (IOException ex) {
+
+        // In case of an IOException the connection will be released
+        // back to the connection manager automatically
+        throw ex;
+
+      }
+      catch (RuntimeException ex) {
+
+        // In case of an unexpected exception you may want to abort
+        // the HTTP request in order to shut down the underlying
+        // connection and release it back to the connection manager.
+        httpUriRequest.abort();
+        throw ex;
+
+      }
+      finally {
+
+        // Closing the input stream will trigger connection release
+        instream.close();
+
+      }
+
+      // shutdown();
     }
     return responseString;
   }
@@ -138,5 +135,4 @@ public class CoinbaseHttpClient{
     coinbaseApacheHttpClient.getConnectionManager().shutdown();
   }
 
-  
 }

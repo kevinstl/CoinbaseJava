@@ -8,6 +8,7 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.http.client.ClientProtocolException;
 import org.springframework.stereotype.Component;
 
+import com.coinbase.java.domain.request.ButtonRequest;
 import com.coinbase.java.domain.request.BuyRequest;
 import com.coinbase.java.domain.request.OauthApplication;
 import com.coinbase.java.domain.request.TransactionRequest;
@@ -98,8 +99,36 @@ public class CoinbaseClientAuthenticatedMock extends CoinbaseClient {
       return returnExpectedStringResponse(e, "postCreateOauthApplication.json");
     }
   }
-
-
+  
+  @Override
+  public String getAuthorization() throws ClientProtocolException, IOException {
+    try{
+      return super.getAuthorization();
+    }
+    catch(CoinbaseException e){
+      return returnExpectedStringResponse(e, "getAuthorizationSuccess.json");
+    }
+  }
+  
+  @Override
+  public String postCreatePaymentObject(ButtonRequest buttonRequest) throws ClientProtocolException, IOException {
+    try{
+      return super.postCreatePaymentObject(buttonRequest);
+    }
+    catch(CoinbaseException e){
+      return returnExpectedStringResponse(e, "postCreatePaymentButtonSuccess.json");
+    }
+  }
+  
+  @Override
+  public String postCreateOrder(String objectId) throws ClientProtocolException, IOException {
+    try{
+      return super.postCreateOrder(objectId);
+    }
+    catch(CoinbaseException e){
+      return returnExpectedStringResponse(e, "postCreateOrderSuccess.json");
+    }
+  }
 
   @Override
   public String getContacts() throws ClientProtocolException, IOException {
@@ -122,16 +151,6 @@ public class CoinbaseClientAuthenticatedMock extends CoinbaseClient {
     }
   }
 
-
-//  @Override
-//  public String getExchangeRates() throws ClientProtocolException, IOException {
-//    try{
-//      return super.getExchangeRates();
-//    }
-//    catch(CoinbaseException e){
-//      return returnExpectedStringResponse(e, "getExchangeRatesSuccess.json");
-//    }
-//  }
   
 
   @Override
@@ -154,28 +173,6 @@ public class CoinbaseClientAuthenticatedMock extends CoinbaseClient {
       return returnExpectedStringResponse(e, "getIndividualOrderSuccess.json");
     }
   }
-
-
-//  @Override
-//  public String getPriceToBuy() throws ClientProtocolException, IOException {
-//    try{
-//      return super.getPriceToBuy();
-//    }
-//    catch(CoinbaseException e){
-//      return returnExpectedStringResponse(e, "getBalanceSuccess.json");
-//    }
-//  }
-
-
-//  @Override
-//  public String getPriceToSell() throws ClientProtocolException, IOException {
-//    try{
-//      return super.getBalance();
-//    }
-//    catch(CoinbaseException e){
-//      return returnExpectedStringResponse(e, "getBalanceSuccess.json");
-//    }
-//  }
 
 
   @Override
@@ -236,18 +233,6 @@ public class CoinbaseClientAuthenticatedMock extends CoinbaseClient {
   public String cancelRequest() throws ClientProtocolException, IOException {
     try{
       return super.getBalance();
-    }
-    catch(CoinbaseException e){
-      return returnExpectedStringResponse(e, "getBalanceSuccess.json");
-    }
-  }
-
-
-  
-  @Override
-  public String getPaymentButton() throws ClientProtocolException, IOException {
-    try{
-      return super.getPaymentButton();
     }
     catch(CoinbaseException e){
       return returnExpectedStringResponse(e, "getBalanceSuccess.json");
