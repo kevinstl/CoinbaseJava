@@ -107,6 +107,13 @@ Given I have an instance of CoinbaseClient
 When I get merchant orders
 Then I see that merchant orders are returned
 
+@WIP
+Scenario: I am able to create a new order
+
+Given I have an instance of CoinbaseClient
+When I create a new order
+Then I see that a new order is created
+
 
 Scenario: I am able to get an individual order
 

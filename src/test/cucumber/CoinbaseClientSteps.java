@@ -143,6 +143,12 @@ public class CoinbaseClientSteps {
   @When("^I create a payment object$")
   public void I_create_a_payment_object() throws Throwable {
     
+    ButtonRequest buttonRequest = createButtonRequest();
+    
+    serviceResponse = coinbaseClientAuthenticatedMock.postCreatePaymentObject(buttonRequest);
+  }
+
+  private ButtonRequest createButtonRequest() {
     String name = null;
     String type = null;
     String price_string = null;
@@ -154,8 +160,7 @@ public class CoinbaseClientSteps {
     Boolean include_email = null;
     
     ButtonRequest buttonRequest = new ButtonRequest(name, type, price_string, price_currency_iso, custom, callback_url, description, style, include_email);
-    
-    serviceResponse = coinbaseClientAuthenticatedMock.postCreatePaymentObject(buttonRequest);
+    return buttonRequest;
   }
 
   @Then("^I see that my newly created payment object is returned$")
@@ -218,6 +223,20 @@ public class CoinbaseClientSteps {
   public void I_see_that_merchant_orders_are_returned() throws Throwable {
     assertThat(serviceResponse, containsString("orders"));
     assertThat(serviceResponse, containsString("total_count"));
+  }
+  
+  @When("^I create a new order$")
+  public void I_create_a_new_order() throws Throwable {
+    ButtonRequest buttonRequest = createButtonRequest();
+    serviceResponse = coinbaseClientAuthenticatedMock.postOrders(buttonRequest);
+  }
+
+  @Then("^I see that a new order is created$")
+  public void I_see_that_a_new_order_is_created() throws Throwable {
+    assertThat(serviceResponse, containsString("success"));
+    assertThat(serviceResponse, containsString("order"));
+    assertThat(serviceResponse, containsString("total_native"));
+    assertThat(serviceResponse, containsString("receive_address"));
   }
 
   @When("^I get an individual order$")

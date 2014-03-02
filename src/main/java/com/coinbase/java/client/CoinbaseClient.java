@@ -214,12 +214,24 @@ public class CoinbaseClient {
 
     return specifiedExchangeRate;
   }
+  
 
   public String getOrders() throws ClientProtocolException, IOException {
     String operation = ORDERS;
 
     String responseString = httpGet(operation);
 
+    return responseString;
+  }
+  
+  
+  public String postOrders(ButtonRequest buttonRequest) throws ClientProtocolException, IOException {
+    String operation = BUTTONS;
+    
+    Gson gson = new Gson();
+    String payload = gson.toJson(buttonRequest);
+    String responseString = httpPost(operation, payload);
+    
     return responseString;
   }
 
@@ -230,6 +242,7 @@ public class CoinbaseClient {
 
     return responseString;
   }
+
 
   public String getPriceToBuy() throws ClientProtocolException, IOException {
     String operation = PRICES_BUY;

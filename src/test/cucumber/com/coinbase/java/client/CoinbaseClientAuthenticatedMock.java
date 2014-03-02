@@ -162,6 +162,17 @@ public class CoinbaseClientAuthenticatedMock extends CoinbaseClient {
       return returnExpectedStringResponse(e, "getOrdersSuccess.json");
     }
   }
+  
+  
+  @Override
+  public String postOrders(ButtonRequest buttonRequest) throws ClientProtocolException, IOException {
+    try{
+      return super.postOrders(buttonRequest);
+    }
+    catch(CoinbaseException e){
+      return returnExpectedStringResponse(e, "postCreateOrdersSuccess.json");
+    }
+  }
 
 
   @Override
