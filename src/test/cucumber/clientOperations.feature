@@ -107,7 +107,7 @@ Given I have an instance of CoinbaseClient
 When I get merchant orders
 Then I see that merchant orders are returned
 
-@WIP
+
 Scenario: I am able to create a new order
 
 Given I have an instance of CoinbaseClient
@@ -120,6 +120,13 @@ Scenario: I am able to get an individual order
 Given I have an instance of CoinbaseClient
 When I get an individual order
 Then I see that an individual order is returned
+
+@WIP
+Scenario: I am able to get payment methods associated with an account
+
+Given I have an instance of CoinbaseClient
+When I get payment methods
+Then I see that payment methods are returned
 
 
 Scenario: I am able to get the bitcoin buy price

@@ -53,6 +53,8 @@ public class CoinbaseClient {
   public static final String EXCHANGE_RATES = "/exchange_rates";
 
   public static final String ORDERS = "/orders";
+
+  public static final String PAYMENT_METHODS = "/payment_methods";
   
   public static final String PRICES_BUY = "/prices/buy";
   public static final String PRICES_SELL = "/prices/sell";
@@ -242,7 +244,15 @@ public class CoinbaseClient {
 
     return responseString;
   }
+  
 
+  public String getPaymentMethods() throws ClientProtocolException, IOException {
+    String operation = PAYMENT_METHODS;
+
+    String responseString = httpGet(operation);
+
+    return responseString;
+  }
 
   public String getPriceToBuy() throws ClientProtocolException, IOException {
     String operation = PRICES_BUY;

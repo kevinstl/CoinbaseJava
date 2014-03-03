@@ -184,6 +184,17 @@ public class CoinbaseClientAuthenticatedMock extends CoinbaseClient {
       return returnExpectedStringResponse(e, "getIndividualOrderSuccess.json");
     }
   }
+  
+  
+  @Override
+  public String getPaymentMethods() throws ClientProtocolException, IOException {
+    try{
+      return super.getPaymentMethods();
+    }
+    catch(CoinbaseException e){
+      return returnExpectedStringResponse(e, "getPaymentMethodsSuccess.json");
+    }
+  }
 
 
   @Override

@@ -250,6 +250,16 @@ public class CoinbaseClientSteps {
     assertThat(serviceResponse, containsString("order"));
     assertThat(serviceResponse, containsString("created_at"));
   }
+  
+  @When("^I get payment methods$")
+  public void I_get_payment_methods() throws Throwable {
+    serviceResponse = coinbaseClientAuthenticatedMock.getPaymentMethods();
+  }
+
+  @Then("^I see that payment methods are returned$")
+  public void I_see_that_payment_methods_are_returned() throws Throwable {
+    assertThat(serviceResponse, containsString("payment_methods"));
+  }
 
   @When("^I get the bitcoin buy price$")
   public void I_get_the_bitcoin_buy_price() throws Throwable {
