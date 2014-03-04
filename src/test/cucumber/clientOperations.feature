@@ -121,7 +121,7 @@ Given I have an instance of CoinbaseClient
 When I get an individual order
 Then I see that an individual order is returned
 
-@WIP
+
 Scenario: I am able to get payment methods associated with an account
 
 Given I have an instance of CoinbaseClient
@@ -141,6 +141,20 @@ Scenario: I am able to get the bitcoin sell price
 Given I have an instance of CoinbaseClient
 When I get the bitcoin sell price
 Then I see that the bitcoin sell price is returned
+
+@WIP
+Scenario: I am able to get the bitcoin spot price
+
+Given I have an instance of CoinbaseClient
+When I get the bitcoin spot price
+Then I see that the bitcoin spot price is returned
+
+@WIP
+Scenario: I am able to get the bitcoin historical spot price
+
+Given I have an instance of CoinbaseClient
+When I get the bitcoin historical spot price
+Then I see that the bitcoin historical spot price is returned
 
 
 Scenario: I am able to get a user's recent transactions

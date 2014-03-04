@@ -281,6 +281,27 @@ public class CoinbaseClientSteps {
   public void I_see_that_the_bitcoin_sell_price_is_returned() throws Throwable {
     assertThat(serviceResponse, containsString("amount"));
   }
+  
+  @When("^I get the bitcoin spot price$")
+  public void I_get_the_bitcoin_spot_price() throws Throwable {
+    serviceResponse = coinbaseClientAuthenticatedMock.getPricesSpotRate();
+  }
+
+  @Then("^I see that the bitcoin spot price is returned$")
+  public void I_see_that_the_bitcoin_spot_price_is_returned() throws Throwable {
+    assertThat(serviceResponse, containsString("amount"));
+    assertThat(serviceResponse, containsString("currency"));
+  }
+
+  @When("^I get the bitcoin historical spot price$")
+  public void I_get_the_bitcoin_historical_spot_price() throws Throwable {
+    serviceResponse = coinbaseClientAuthenticatedMock.getPricesHistorical();
+  }
+
+  @Then("^I see that the bitcoin historical spot price is returned$")
+  public void I_see_that_the_bitcoin_historical_spot_price_is_returned() throws Throwable {
+    assertThat(serviceResponse, containsString(","));
+  }
 
   @When("^I get a user's recent transactions$")
   public void I_get_a_user_s_recent_transactions() throws Throwable {

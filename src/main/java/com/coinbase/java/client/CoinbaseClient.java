@@ -58,6 +58,8 @@ public class CoinbaseClient {
   
   public static final String PRICES_BUY = "/prices/buy";
   public static final String PRICES_SELL = "/prices/sell";
+  public static final String PRICES_SPOT_RATE = "/prices/spot_rate";
+  public static final String PRICES_HISTORICAL = "/prices/historical";
   
   private static final String API_KEY = "?api_key=";
 
@@ -267,6 +269,22 @@ public class CoinbaseClient {
 
     String responseString = httpGet(operation);
 
+    return responseString;
+  }
+  
+  public String getPricesSpotRate() throws ClientProtocolException, IOException {
+    String operation = PRICES_SPOT_RATE;
+    
+    String responseString = httpGet(operation);
+    
+    return responseString;
+  }
+  
+  public String getPricesHistorical() throws ClientProtocolException, IOException {
+    String operation = PRICES_HISTORICAL;
+    
+    String responseString = httpGet(operation);
+    
     return responseString;
   }
 
