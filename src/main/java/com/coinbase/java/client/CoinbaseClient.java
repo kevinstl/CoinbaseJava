@@ -61,9 +61,13 @@ public class CoinbaseClient {
   public static final String PRICES_SPOT_RATE = "/prices/spot_rate";
   public static final String PRICES_HISTORICAL = "/prices/historical";
   
+  private static final String RECURRING_PAYMENTS = "/recurring_payments";
+  private static final String SUBSCRIBERS = "/subscribers";
+  
   private static final String API_KEY = "?api_key=";
 
   private static final String HTTPS_COINBASE_COM_API_V1_ACCOUNT = "https://coinbase.com/api/v1";
+
 
   private static Logger logger = Logger.getLogger(CoinbaseClient.class.getName());
 
@@ -282,6 +286,38 @@ public class CoinbaseClient {
   
   public String getPricesHistorical() throws ClientProtocolException, IOException {
     String operation = PRICES_HISTORICAL;
+    
+    String responseString = httpGet(operation);
+    
+    return responseString;
+  }
+  
+  public String getRecurringPayments() throws ClientProtocolException, IOException {
+    String operation = RECURRING_PAYMENTS;
+    
+    String responseString = httpGet(operation);
+    
+    return responseString;
+  }
+  
+  public String getIndividualRecurringPayment(Integer paymentId) throws ClientProtocolException, IOException {
+    String operation = RECURRING_PAYMENTS + "/" + paymentId;
+    
+    String responseString = httpGet(operation);
+    
+    return responseString;
+  }
+  
+  public String getSubscribers() throws ClientProtocolException, IOException {
+    String operation = SUBSCRIBERS;
+    
+    String responseString = httpGet(operation);
+    
+    return responseString;
+  }
+  
+  public String getIndividualSubscriber(Integer subscriberId) throws ClientProtocolException, IOException {
+    String operation = SUBSCRIBERS + "/" + subscriberId;
     
     String responseString = httpGet(operation);
     

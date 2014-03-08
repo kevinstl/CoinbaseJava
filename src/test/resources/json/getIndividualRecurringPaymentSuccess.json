@@ -1,0 +1,22 @@
+{
+  "recurring_payment": {
+    "id": "5193377ef8182b7c19000015",
+    "type": "send",
+    "status": "active",
+    "created_at": "2013-05-30T13:43:21-07:00",
+    "to": "user2@example.com",
+    "from": null,
+    "start_type": "now",
+    "times": -1,
+    "times_run": 7,
+    "repeat": "monthly",
+    "last_run": "2013-05-30T13:00:00-07:00",
+    "next_run": "2013-06-30T13:00:00-07:00",
+    "notes": null,
+    "description": "Send 0.02 BTC to User Two",
+    "amount": {
+      "amount": "0.02000000",
+      "currency": "BTC"
+    }
+  }
+}

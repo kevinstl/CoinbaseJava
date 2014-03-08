@@ -217,6 +217,50 @@ public class CoinbaseClientAuthenticatedMock extends CoinbaseClient {
       return returnExpectedStringResponse(e, "getIndividualTransactionSuccess.json");
     }
   }
+  
+  
+  @Override
+  public String getRecurringPayments() throws ClientProtocolException, IOException {
+    try{
+      return super.getRecurringPayments();
+    }
+    catch(CoinbaseException e){
+      return returnExpectedStringResponse(e, "getRecurringPaymentsSuccess.json");
+    }
+  }
+  
+  
+  @Override
+  public String getIndividualRecurringPayment(Integer paymentId) throws ClientProtocolException, IOException {
+    try{
+      return super.getIndividualRecurringPayment(paymentId);
+    }
+    catch(CoinbaseException e){
+      return returnExpectedStringResponse(e, "getIndividualRecurringPaymentSuccess.json");
+    }
+  }
+  
+  
+  @Override
+  public String getSubscribers() throws ClientProtocolException, IOException {
+    try{
+      return super.getSubscribers();
+    }
+    catch(CoinbaseException e){
+      return returnExpectedStringResponse(e, "getSubscribersSuccess.json");
+    }
+  }
+  
+  
+  @Override
+  public String getIndividualSubscriber(Integer subscriberId) throws ClientProtocolException, IOException {
+    try{
+      return super.getIndividualSubscriber(subscriberId);
+    }
+    catch(CoinbaseException e){
+      return returnExpectedStringResponse(e, "getIndividualSubscriberSuccess.json");
+    }
+  }
 
 
   @Override

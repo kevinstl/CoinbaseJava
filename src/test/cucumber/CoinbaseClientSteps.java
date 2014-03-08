@@ -302,6 +302,50 @@ public class CoinbaseClientSteps {
   public void I_see_that_the_bitcoin_historical_spot_price_is_returned() throws Throwable {
     assertThat(serviceResponse, containsString(","));
   }
+  
+  @When("^I get my recurring payments$")
+  public void I_get_my_recurring_payments() throws Throwable {
+    serviceResponse = coinbaseClientAuthenticatedMock.getRecurringPayments();
+  }
+
+  @Then("^I see that my recurring payments are returned$")
+  public void I_see_that_my_recurring_payments_are_returned() throws Throwable {
+    assertThat(serviceResponse, containsString("recurring_payments"));
+  }
+
+  @When("^I get an individual recurring payment$")
+  public void I_get_an_individual_recurring_payment() throws Throwable {
+    Integer paymentId = 0;
+    serviceResponse = coinbaseClientAuthenticatedMock.getIndividualRecurringPayment(paymentId);
+  }
+
+  @Then("^I see that my individual recurring payment is returned$")
+  public void I_see_that_my_individual_recurring_payment_is_returned() throws Throwable {
+    assertThat(serviceResponse, containsString("recurring_payment"));
+  }
+
+  @When("^I get a list of my customer subscriptions$")
+  public void I_get_a_list_of_my_customer_subscriptions() throws Throwable {
+    serviceResponse = coinbaseClientAuthenticatedMock.getSubscribers();
+  }
+
+  @Then("^I see that my list of my customer subscriptions are returned$")
+  public void I_see_that_my_list_of_my_customer_subscriptions_are_returned() throws Throwable {
+    assertThat(serviceResponse, containsString("recurring_payments"));
+    assertThat(serviceResponse, containsString("recurring_payment"));
+  }
+
+  @When("^I get an individual customer subscription$")
+  public void I_get_an_individual_customer_subscription() throws Throwable {
+    Integer subscriberId = 0;
+    serviceResponse = coinbaseClientAuthenticatedMock.getIndividualSubscriber(subscriberId);
+  }
+
+  @Then("^I see that my individual customer subscription is returned$")
+  public void I_see_that_my_individual_customer_subscription_is_returned() throws Throwable {
+    assertThat(serviceResponse, containsString("recurring_payment"));
+    assertThat(serviceResponse, containsString("subscription"));
+  }
 
   @When("^I get a user's recent transactions$")
   public void I_get_a_user_s_recent_transactions() throws Throwable {

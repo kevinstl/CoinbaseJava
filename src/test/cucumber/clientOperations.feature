@@ -142,19 +142,47 @@ Given I have an instance of CoinbaseClient
 When I get the bitcoin sell price
 Then I see that the bitcoin sell price is returned
 
-@WIP
+
 Scenario: I am able to get the bitcoin spot price
 
 Given I have an instance of CoinbaseClient
 When I get the bitcoin spot price
 Then I see that the bitcoin spot price is returned
 
-@WIP
+
 Scenario: I am able to get the bitcoin historical spot price
 
 Given I have an instance of CoinbaseClient
 When I get the bitcoin historical spot price
 Then I see that the bitcoin historical spot price is returned
+
+
+Scenario: I am able to get a list of my recurring payments
+
+Given I have an instance of CoinbaseClient
+When I get my recurring payments
+Then I see that my recurring payments are returned
+
+
+Scenario: I am able to get an individual recurring payment
+
+Given I have an instance of CoinbaseClient
+When I get an individual recurring payment
+Then I see that my individual recurring payment is returned
+
+
+Scenario: I am able to get a list of my customer subscriptions
+
+Given I have an instance of CoinbaseClient
+When I get a list of my customer subscriptions
+Then I see that my list of my customer subscriptions are returned
+
+
+Scenario: I am able to get an individual customer subscription
+
+Given I have an instance of CoinbaseClient
+When I get an individual customer subscription
+Then I see that my individual customer subscription is returned
 
 
 Scenario: I am able to get a user's recent transactions
