@@ -11,6 +11,7 @@ import org.springframework.stereotype.Component;
 import com.coinbase.java.domain.request.ButtonRequest;
 import com.coinbase.java.domain.request.BuyRequest;
 import com.coinbase.java.domain.request.OauthApplication;
+import com.coinbase.java.domain.request.TokenRequest;
 import com.coinbase.java.domain.request.TransactionRequest;
 import com.coinbase.java.domain.response.BuyResponse;
 import com.coinbase.java.domain.response.ExchangeRatesResponse;
@@ -261,7 +262,28 @@ public class CoinbaseClientAuthenticatedMock extends CoinbaseClient {
       return returnExpectedStringResponse(e, "getIndividualSubscriberSuccess.json");
     }
   }
-
+  
+  
+  @Override
+  public String postTokens() throws ClientProtocolException, IOException {
+    try{
+      return super.postTokens();
+    }
+    catch(CoinbaseException e){
+      return returnExpectedStringResponse(e, "postTokensSuccess.json");
+    }
+  }
+  
+  
+  @Override
+  public String postTokensRedeem(TokenRequest tokenRequest) throws ClientProtocolException, IOException {
+    try{
+      return super.postTokensRedeem(tokenRequest);
+    }
+    catch(CoinbaseException e){
+      return returnExpectedStringResponse(e, "postTokensRedeemSuccess.json");
+    }
+  }
 
   @Override
   public String getRecentBuysAndSells() throws ClientProtocolException, IOException {

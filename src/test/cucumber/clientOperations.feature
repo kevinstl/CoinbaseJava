@@ -184,6 +184,20 @@ Given I have an instance of CoinbaseClient
 When I get an individual customer subscription
 Then I see that my individual customer subscription is returned
 
+@WIP
+Scenario: I am able to create a token which can be redeemed for bitcoin
+
+Given I have an instance of CoinbaseClient
+When I create a token redeemable for bitcoin
+Then I see that my token redeemable for bitcoin is returned
+
+@WIP
+Scenario: I am able to redeem a token, claiming its address and all its bitcoins
+
+Given I have an instance of CoinbaseClient
+When I redeem a token for bitcoin
+Then I see that my token is successfully redeemed
+
 
 Scenario: I am able to get a user's recent transactions
 

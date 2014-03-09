@@ -14,6 +14,7 @@ import com.coinbase.java.domain.deserializer.ResponseDeserializer;
 import com.coinbase.java.domain.request.ButtonRequest;
 import com.coinbase.java.domain.request.BuyRequest;
 import com.coinbase.java.domain.request.OauthApplication;
+import com.coinbase.java.domain.request.TokenRequest;
 import com.coinbase.java.domain.request.TransactionRequest;
 import com.coinbase.java.domain.response.BuyResponse;
 import com.coinbase.java.domain.response.ExchangeRatesResponse;
@@ -63,6 +64,8 @@ public class CoinbaseClient {
   
   private static final String RECURRING_PAYMENTS = "/recurring_payments";
   private static final String SUBSCRIBERS = "/subscribers";
+  
+  public static final String TOKENS = "/tokens";
   
   private static final String API_KEY = "?api_key=";
 
@@ -320,6 +323,25 @@ public class CoinbaseClient {
     String operation = SUBSCRIBERS + "/" + subscriberId;
     
     String responseString = httpGet(operation);
+    
+    return responseString;
+  }
+  
+  public String postTokens() throws ClientProtocolException, IOException {
+    String operation = TOKENS;
+    
+    String responseString = httpPost(operation, null);
+    
+    return responseString;
+  }
+  
+  public String postTokensRedeem(TokenRequest tokenRequest) throws ClientProtocolException, IOException {
+    String operation = TOKENS;
+    
+    Gson gson = new Gson();
+    String payload = gson.toJson(tokenRequest);
+    
+    String responseString = httpPost(operation, payload);
     
     return responseString;
   }

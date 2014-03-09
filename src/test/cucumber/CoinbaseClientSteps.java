@@ -15,6 +15,7 @@ import com.coinbase.java.domain.request.ButtonRequest;
 import com.coinbase.java.domain.request.BuyRequest;
 import com.coinbase.java.domain.request.OauthApplication;
 import com.coinbase.java.domain.request.OauthApplication.Application;
+import com.coinbase.java.domain.request.TokenRequest;
 import com.coinbase.java.domain.request.TransactionRequest;
 import com.coinbase.java.domain.response.BuyResponse;
 import com.coinbase.java.domain.response.SendMoneyResponse;
@@ -345,6 +346,30 @@ public class CoinbaseClientSteps {
   public void I_see_that_my_individual_customer_subscription_is_returned() throws Throwable {
     assertThat(serviceResponse, containsString("recurring_payment"));
     assertThat(serviceResponse, containsString("subscription"));
+  }
+  
+  @When("^I create a token redeemable for bitcoin$")
+  public void I_create_a_token_redeemable_for_bitcoin() throws Throwable {
+    serviceResponse = coinbaseClientAuthenticatedMock.postTokens();
+  }
+
+  @Then("^I see that my token redeemable for bitcoin is returned$")
+  public void I_see_that_my_token_redeemable_for_bitcoin_is_returned() throws Throwable {
+    assertThat(serviceResponse, containsString("token"));
+    assertThat(serviceResponse, containsString("token_id"));
+    assertThat(serviceResponse, containsString("address"));
+  }
+
+  @When("^I redeem a token for bitcoin$")
+  public void I_redeem_a_token_for_bitcoin() throws Throwable {
+    String token_id = "123";
+    TokenRequest tokenRequest = new TokenRequest(token_id);
+    serviceResponse = coinbaseClientAuthenticatedMock.postTokensRedeem(tokenRequest);
+  }
+
+  @Then("^I see that my token is successfully redeemed$")
+  public void I_see_that_my_token_is_successfully_redeemed() throws Throwable {
+    assertThat(serviceResponse, containsString("success"));
   }
 
   @When("^I get a user's recent transactions$")
