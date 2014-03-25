@@ -12,6 +12,7 @@ import com.coinbase.java.domain.request.ButtonRequest;
 import com.coinbase.java.domain.request.BuyRequest;
 import com.coinbase.java.domain.request.OauthApplication;
 import com.coinbase.java.domain.request.TokenRequest;
+import com.coinbase.java.domain.request.TransactionFromRequest;
 import com.coinbase.java.domain.request.TransactionRequest;
 import com.coinbase.java.domain.response.BuyResponse;
 import com.coinbase.java.domain.response.ExchangeRatesResponse;
@@ -210,7 +211,7 @@ public class CoinbaseClientAuthenticatedMock extends CoinbaseClient {
 
 
   @Override
-  public String getIndividualTransaction(Integer transactionId) throws ClientProtocolException, IOException {
+  public String getIndividualTransaction(String transactionId) throws ClientProtocolException, IOException {
     try{
       return super.getIndividualTransaction(transactionId);
     }
@@ -316,16 +317,6 @@ public class CoinbaseClientAuthenticatedMock extends CoinbaseClient {
       return returnExpectedStringResponse(e, "getBalanceSuccess.json");
     }
   }
-
-  @Override
-  public String cancelRequest() throws ClientProtocolException, IOException {
-    try{
-      return super.getBalance();
-    }
-    catch(CoinbaseException e){
-      return returnExpectedStringResponse(e, "getBalanceSuccess.json");
-    }
-  }
   
   @Override
   public SendMoneyResponse sendMoney(TransactionRequest transactionSenderWrapper) throws ClientProtocolException, IOException {
@@ -337,6 +328,47 @@ public class CoinbaseClientAuthenticatedMock extends CoinbaseClient {
       return getResponseDeserializer().deserializeSendMoneyResponse(responseString);
     }
   }
+  
+  @Override
+  public String postTransactionsRequestMoney(TransactionFromRequest transactionFromRequest) throws ClientProtocolException, IOException {
+    try{
+      return super.postTransactionsRequestMoney(transactionFromRequest);
+    }
+    catch(CoinbaseException e){
+      return returnExpectedStringResponse(e, "postTransactionsRequestMoneySuccess.json");
+    }
+  }
+  
+  @Override
+  public String putTransactionsResendRequest(String transactionId) throws ClientProtocolException, IOException {
+    try{
+      return super.putTransactionsResendRequest(transactionId);
+    }
+    catch(CoinbaseException e){
+      return returnExpectedStringResponse(e, "putTransactionsResendRequestSuccess.json");
+    }
+  }
+
+  @Override
+  public String deleteTransactionsCancelRequest(String transactionId) throws ClientProtocolException, IOException {
+    try{
+      return super.deleteTransactionsCancelRequest(transactionId);
+    }
+    catch(CoinbaseException e){
+      return returnExpectedStringResponse(e, "deleteTransactionsCancelRequestSuccess.json");
+    }
+  }
+  
+  @Override
+  public String putTransactionsCompleteRequest(String transactionId) throws ClientProtocolException, IOException {
+    try{
+      return super.putTransactionsCompleteRequest(transactionId);
+    }
+    catch(CoinbaseException e){
+      return returnExpectedStringResponse(e, "putTransactionsCompleteRequestSuccess.json");
+    }
+  }
+
   
   @Override
   public BuyResponse buy(BuyRequest buyRequest) throws ClientProtocolException, IOException {

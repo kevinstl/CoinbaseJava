@@ -16,6 +16,7 @@ import com.coinbase.java.domain.request.BuyRequest;
 import com.coinbase.java.domain.request.OauthApplication;
 import com.coinbase.java.domain.request.OauthApplication.Application;
 import com.coinbase.java.domain.request.TokenRequest;
+import com.coinbase.java.domain.request.TransactionFromRequest;
 import com.coinbase.java.domain.request.TransactionRequest;
 import com.coinbase.java.domain.response.BuyResponse;
 import com.coinbase.java.domain.response.SendMoneyResponse;
@@ -387,7 +388,7 @@ public class CoinbaseClientSteps {
 
   @When("^I get a user's individual transaction$")
   public void I_get_a_user_s_individual_transaction() throws Throwable {
-    Integer transactionId = 0;
+    String transactionId = "123a";
     serviceResponse = coinbaseClientAuthenticatedMock.getIndividualTransaction(transactionId);
   }
 
@@ -461,6 +462,55 @@ public class CoinbaseClientSteps {
     assertEquals("pending", sendMoneyResponse.getTransaction().getStatus());
 
   }
+  
+  
+  
+  
+  @When("^I send a money request for \"([^\"]*)\" bitcoin to email address \"([^\"]*)\"$")
+  public void I_send_a_money_request_for_bitcoin_to_email_address(BigDecimal bitcoinAmount, String emailAddress) throws Throwable {
+    TransactionFromRequest transactionFromRequest = new TransactionFromRequest(emailAddress, bitcoinAmount, "notes"); 
+    serviceResponse = coinbaseClientAuthenticatedMock.postTransactionsRequestMoney(transactionFromRequest);
+  }
+
+  @Then("^I see that the money request is successful$")
+  public void I_see_that_the_money_request_is_successful() throws Throwable {
+    assertThat(serviceResponse, containsString("transaction"));
+    assertThat(serviceResponse, containsString("sender"));
+    assertThat(serviceResponse, containsString("recipient"));
+  }
+
+  @When("^I resend email for a money request$")
+  public void I_resend_email_for_a_money_request() throws Throwable {
+    String transactionId = null;
+    serviceResponse = coinbaseClientAuthenticatedMock.putTransactionsResendRequest(transactionId);
+  }
+
+  @Then("^I see that the resend is successful$")
+  public void I_see_that_the_resend_is_successful() throws Throwable {
+    assertThat(serviceResponse, containsString("true"));
+  }
+
+  @When("^I cancel a request for transaction id \"([^\"]*)\"$")
+  public void I_cancel_a_request_for_transaction_id(String transactionId) throws Throwable {
+    serviceResponse = coinbaseClientAuthenticatedMock.deleteTransactionsCancelRequest(transactionId);
+  }
+
+  @Then("^I see that the request cancellation is successful$")
+  public void I_see_that_the_request_cancellation_is_successful() throws Throwable {
+    assertThat(serviceResponse, containsString("true"));
+  }
+
+  @When("^I complete a request for transaction id \"([^\"]*)\"$")
+  public void I_complete_a_request_for_transaction_id(String transactionId) throws Throwable {
+    serviceResponse = coinbaseClientAuthenticatedMock.putTransactionsCompleteRequest(transactionId);
+  }
+
+  @Then("^I see that the request completion is successful$")
+  public void I_see_that_the_request_completion_is_successful() throws Throwable {
+    assertThat(serviceResponse, containsString("transfers"));
+  }
+  
+  
 
   @When("^I buy \"([^\"]*)\" bitcoin$")
   public void I_buy_bitcoin(BigDecimal bitcoinQty) throws Throwable {

@@ -1,4 +1,4 @@
-@CLIENT_OPERATIONS
+@CLIENT_OPERATIONS @WIP
 Feature: clientOperations - Execute Coinbase client operations.
 
 
@@ -80,7 +80,7 @@ When I get authorizations
 Then I see that my authorizations are returned
 
 
-Scenario: I am able to get emails(contacts) previously used
+Scenario: I am able to get emails, contacts, previously used
 
 Given I have an instance of CoinbaseClient
 When I get my contacts
@@ -184,14 +184,14 @@ Given I have an instance of CoinbaseClient
 When I get an individual customer subscription
 Then I see that my individual customer subscription is returned
 
-@WIP
+
 Scenario: I am able to create a token which can be redeemed for bitcoin
 
 Given I have an instance of CoinbaseClient
 When I create a token redeemable for bitcoin
 Then I see that my token redeemable for bitcoin is returned
 
-@WIP
+
 Scenario: I am able to redeem a token, claiming its address and all its bitcoins
 
 Given I have an instance of CoinbaseClient
@@ -213,6 +213,47 @@ When I get a user's individual transaction
 Then I see that a user's individual transaction is returned
 
 
+Scenario: I am able to send money to a bitcoin address
+
+Given I have an instance of CoinbaseClient
+When I send money to bitcoin address "awe54f4wewe4fwe4fs6f18e4"
+Then I see that the transaction is successful
+
+
+
+
+
+Scenario: I am able to send a money request to an email address
+
+Given I have an instance of CoinbaseClient
+When I send a money request for "1.234" bitcoin to email address "test@hotmail.com"
+Then I see that the money request is successful
+
+
+Scenario: I am able to resend emails for a money request
+
+Given I have an instance of CoinbaseClient
+When I resend email for a money request
+Then I see that the resend is successful
+
+
+Scenario: I am able to cancel a money request
+
+Given I have an instance of CoinbaseClient
+When I cancel a request for transaction id "123a"
+Then I see that the request cancellation is successful
+
+
+Scenario: I am able to complete a money request
+
+Given I have an instance of CoinbaseClient
+When I complete a request for transaction id "123a"
+Then I see that the request completion is successful
+
+
+
+
+
 Scenario: I am able to get a user's recent buys and sells
 
 Given I have an instance of CoinbaseClient
@@ -225,13 +266,6 @@ Scenario: I am able to get the current user with account settings
 Given I have an instance of CoinbaseClient
 When I get the current user with account settings
 Then I see that the current user with account settings is returned
-
-
-Scenario: I am able to send money to a bitcoin address
-
-Given I have an instance of CoinbaseClient
-When I send money to bitcoin address "awe54f4wewe4fwe4fs6f18e4"
-Then I see that the transaction is successful
 
 
 Scenario: I am able to buy bitcoin

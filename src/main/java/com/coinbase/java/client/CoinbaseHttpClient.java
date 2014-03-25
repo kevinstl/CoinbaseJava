@@ -15,6 +15,7 @@ import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpDelete;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.client.methods.HttpPut;
 import org.apache.http.client.methods.HttpUriRequest;
 import org.apache.http.entity.StringEntity;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -54,6 +55,22 @@ public class CoinbaseHttpClient {
 
     String responseString = executeHttpUriRequest(httpPost, "application/json");
 
+    return responseString;
+  }
+  
+  public String executePut(String urlString, String payload) throws IOException, ClientProtocolException {
+    
+    logger.info("payload: " + payload);
+    
+    HttpPut httpPut = new HttpPut(urlString);
+    
+    if (payload != null) {
+      StringEntity stringEntity = new StringEntity(payload);
+      httpPut.setEntity(stringEntity);
+    }
+    
+    String responseString = executeHttpUriRequest(httpPut, "application/json");
+    
     return responseString;
   }
 

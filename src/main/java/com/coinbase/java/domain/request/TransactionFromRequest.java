@@ -3,34 +3,34 @@ package com.coinbase.java.domain.request;
 import java.math.BigDecimal;
 
 
-public class TransactionRequest {
+public class TransactionFromRequest {
   
   private Transaction transaction;
   
-  public TransactionRequest(String to, BigDecimal amount, String notes) {
+  public TransactionFromRequest(String from, BigDecimal amount, String notes) {
     super();
-    this.transaction = new Transaction(to, amount, notes);
+    this.transaction = new Transaction(from, amount, notes);
   }
 
   public class Transaction {
     
-    private String to;
+    private String from;
     private BigDecimal amount;
     private String notes;
     
-    public Transaction(String to, BigDecimal amount, String notes) {
+    public Transaction(String from, BigDecimal amount, String notes) {
       super();
-      this.to = to;
+      this.from = from;
       this.setAmount(amount);
       this.notes = notes;
     }
 
-    public String getTo() {
-      return to;
+    public String getFrom() {
+      return from;
     }
 
-    public void setTo(String to) {
-      this.to = to;
+    public void setFrom(String from) {
+      this.from = from;
     }
 
     public String getNotes() {
@@ -48,9 +48,6 @@ public class TransactionRequest {
     public void setAmount(BigDecimal amount) {
       this.amount = amount;
     }
-    
-    
-    
     
   }
 

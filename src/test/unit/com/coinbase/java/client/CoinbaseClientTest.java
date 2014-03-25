@@ -193,7 +193,7 @@ public class CoinbaseClientTest {
     
     String expectedResponse = "expectedResponse";
     
-    Integer transactionId = 1;
+    String transactionId = "123a";
     
     when(coinbaseHttpClient.executeGet(testObject.getOperationUrl(CoinbaseClient.TRANSACTIONS + CoinbaseClient.FORWARD_SLASH + transactionId))).thenReturn(expectedResponse);
     
@@ -245,7 +245,9 @@ public class CoinbaseClientTest {
     
     when(coinbaseHttpClient.executeDelete(any(String.class))).thenReturn(expectedResponse);
     
-    String actualResponse = testObject.cancelRequest();
+    String transactionId = "123a";
+    
+    String actualResponse = testObject.deleteTransactionsCancelRequest(transactionId);
     
     assertNotNull(actualResponse);
   }

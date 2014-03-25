@@ -15,6 +15,7 @@ import com.coinbase.java.domain.request.ButtonRequest;
 import com.coinbase.java.domain.request.BuyRequest;
 import com.coinbase.java.domain.request.OauthApplication;
 import com.coinbase.java.domain.request.TokenRequest;
+import com.coinbase.java.domain.request.TransactionFromRequest;
 import com.coinbase.java.domain.request.TransactionRequest;
 import com.coinbase.java.domain.response.BuyResponse;
 import com.coinbase.java.domain.response.ExchangeRatesResponse;
@@ -29,11 +30,9 @@ public class CoinbaseClient {
   public static final String INVALID_API_KEY = "Invalid api_key";
   public static final String FORWARD_SLASH = "/";
   public static final String ACCOUNT_CHANGES = "/account_changes";
-  public static final String CANCEL_REQUEST = "/cancel_request";
   public static final String GENERATE_RECEIVE_ADDRESS = "/account/generate_receive_address";
   public static final String USERS = "/users";
   public static final String TRANSFERS = "/transfers";
-  public static final String TRANSACTIONS = "/transactions";
   public static final String BALANCE = "/account/balance";
   public static final String RECEIVE_ADDRESS = "/account/receive_address";
   public static final String ADDRESSES = "/addresses";
@@ -66,6 +65,13 @@ public class CoinbaseClient {
   private static final String SUBSCRIBERS = "/subscribers";
   
   public static final String TOKENS = "/tokens";
+  
+  public static final String TRANSACTIONS = "/transactions";
+  public static final String SEND_MONEY = "send_money";
+  public static final String REQUEST_MONEY = "request_money";
+  public static final String RESEND_REQUEST = "resend_request";
+  public static final String CANCEL_REQUEST = "cancel_request";
+  public static final String COMPLETE_REQUEST = "complete_request";
   
   private static final String API_KEY = "?api_key=";
 
@@ -354,11 +360,59 @@ public class CoinbaseClient {
     return responseString;
   }
 
-  public String getIndividualTransaction(Integer transactionId) throws ClientProtocolException, IOException {
+  public String getIndividualTransaction(String transactionId) throws ClientProtocolException, IOException {
     String operation = TRANSACTIONS + FORWARD_SLASH + transactionId;
 
     String responseString = httpGet(operation);
 
+    return responseString;
+  }
+  
+  public SendMoneyResponse sendMoney(TransactionRequest transactionSenderWrapper) throws ClientProtocolException, IOException {
+    String operation = TRANSACTIONS + FORWARD_SLASH + SEND_MONEY;
+
+    Gson gson = new Gson();
+    String payload = gson.toJson(transactionSenderWrapper);
+
+    String responseString = httpPost(operation, payload);
+
+    SendMoneyResponse sendMoneyResponse = responseDeserializer.deserializeSendMoneyResponse(responseString);
+
+    return sendMoneyResponse;
+  }
+  //NEW
+  public String postTransactionsRequestMoney(TransactionFromRequest transactionFromRequest) throws ClientProtocolException, IOException {
+    String operation = TRANSACTIONS + FORWARD_SLASH + REQUEST_MONEY;
+    
+    Gson gson = new Gson();
+    String payload = gson.toJson(transactionFromRequest);
+    
+    String responseString = httpPost(operation, payload);
+    
+    return responseString;
+  }
+  //NEW
+  public String putTransactionsResendRequest(String transactionId) throws ClientProtocolException, IOException {
+    String operation = TRANSACTIONS + FORWARD_SLASH + transactionId + FORWARD_SLASH + RESEND_REQUEST;
+    
+    String responseString = httpPut(operation, null);
+    
+    return responseString;
+  }
+  //NEW
+  public String deleteTransactionsCancelRequest(String transactionId) throws ClientProtocolException, IOException {
+    String operation = TRANSACTIONS + FORWARD_SLASH + transactionId + FORWARD_SLASH + CANCEL_REQUEST;
+    
+    String responseString = httpDelete(operation);
+    
+    return responseString;
+  }
+  //NEW
+  public String putTransactionsCompleteRequest(String transactionId) throws ClientProtocolException, IOException {
+    String operation = TRANSACTIONS + FORWARD_SLASH + transactionId + FORWARD_SLASH + COMPLETE_REQUEST;
+    
+    String responseString = httpPut(operation, null);
+    
     return responseString;
   }
 
@@ -387,26 +441,7 @@ public class CoinbaseClient {
     return responseString;
   }
 
-  public String cancelRequest() throws ClientProtocolException, IOException {
-    String operation = CANCEL_REQUEST;
 
-    String responseString = httpDelete(operation);
-
-    return responseString;
-  }
-
-  public SendMoneyResponse sendMoney(TransactionRequest transactionSenderWrapper) throws ClientProtocolException, IOException {
-    String operation = TRANSACTIONS + FORWARD_SLASH + "send_money";
-
-    Gson gson = new Gson();
-    String payload = gson.toJson(transactionSenderWrapper);
-
-    String responseString = httpPost(operation, payload);
-
-    SendMoneyResponse sendMoneyResponse = responseDeserializer.deserializeSendMoneyResponse(responseString);
-
-    return sendMoneyResponse;
-  }
 
   public BuyResponse buy(BuyRequest buyRequest) throws ClientProtocolException, IOException {
     String operation = BUYS;
@@ -447,6 +482,19 @@ public class CoinbaseClient {
       throw new CoinbaseException(INVALID_API_KEY);
     }
 
+    // logger.info("httpResponse.toString(): " + responseString);
+    return responseString;
+  }
+  
+  private String httpPut(String operation, String payload) throws IOException, ClientProtocolException {
+    String urlString = getOperationUrl(operation);
+    
+    String responseString = coinbaseHttpClient.executePut(urlString, payload);
+    
+    if(responseString.contains(INVALID_API_KEY)){
+      throw new CoinbaseException(INVALID_API_KEY);
+    }
+    
     // logger.info("httpResponse.toString(): " + responseString);
     return responseString;
   }
