@@ -1,0 +1,27 @@
+{
+  "success": false,
+  "errors": [
+    "Email is invalid"
+  ],
+  "user": {
+    "id": "512db383f8182bd24d000001",
+    "name": "User One",
+    "email": "bad email",
+    "time_zone": "Pacific Time (US & Canada)",
+    "native_currency": "USD",
+    "buy_level": 1,
+    "sell_level": 1,
+    "balance": {
+      "amount": "49.76000000",
+      "currency": "BTC"
+    },
+    "buy_limit": {
+      "amount": "10.00000000",
+      "currency": "BTC"
+    },
+    "sell_limit": {
+      "amount": "100.00000000",
+      "currency": "BTC"
+    }
+  }
+}

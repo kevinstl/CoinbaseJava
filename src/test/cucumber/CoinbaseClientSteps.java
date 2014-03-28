@@ -18,6 +18,7 @@ import com.coinbase.java.domain.request.OauthApplication.Application;
 import com.coinbase.java.domain.request.TokenRequest;
 import com.coinbase.java.domain.request.TransactionFromRequest;
 import com.coinbase.java.domain.request.TransactionRequest;
+import com.coinbase.java.domain.request.UserRequest;
 import com.coinbase.java.domain.response.BuyResponse;
 import com.coinbase.java.domain.response.SendMoneyResponse;
 
@@ -411,6 +412,20 @@ public class CoinbaseClientSteps {
     assertThat(serviceResponse, containsString("status"));
     assertThat(serviceResponse, containsString("total_count"));
   }
+  
+  @When("^I create a new user with email \"([^\"]*)\" and password \"([^\"]*)\"$")
+  public void I_create_a_new_user_with_email_and_password(String email, String password) throws Throwable {
+    
+    UserRequest userRequest = new UserRequest(email, password);
+    
+    serviceResponse = coinbaseClientAuthenticatedMock.postCreateUser(userRequest);
+  }
+
+  @Then("^I see that the new user is created$")
+  public void I_see_that_the_new_user_is_created() throws Throwable {
+    assertThat(serviceResponse, containsString("user"));
+    assertThat(serviceResponse, containsString("receive_address"));
+  }
 
   @When("^I get the current user with account settings$")
   public void I_get_the_current_user_with_account_settings() throws Throwable {
@@ -424,6 +439,22 @@ public class CoinbaseClientSteps {
     assertThat(serviceResponse, containsString("email"));
     assertThat(serviceResponse, containsString("buy_level"));
     assertThat(serviceResponse, containsString("sell_level"));
+  }
+  
+  @When("^I update account settings for the user with user id \"([^\"]*)\" email \"([^\"]*)\"$")
+  public void I_update_account_settings_for_the_user_with_user_id_email(String userId, String email) throws Throwable {
+    
+    UserRequest userRequest = new UserRequest(email, null);
+    
+    serviceResponse = coinbaseClientAuthenticatedMock.putUserAccountSettings(userId, userRequest);
+  }
+
+  @Then("^I see that the user account settings have been updated$")
+  public void I_see_that_the_user_account_settings_have_been_updated() throws Throwable {
+    assertThat(serviceResponse, containsString("user"));
+    assertThat(serviceResponse, containsString("name"));
+    assertThat(serviceResponse, containsString("email"));
+    assertThat(serviceResponse, containsString("balance"));
   }
 
   @When("^I send money to bitcoin address \"([^\"]*)\"$")

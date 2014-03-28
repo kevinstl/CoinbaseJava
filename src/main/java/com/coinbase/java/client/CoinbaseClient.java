@@ -17,6 +17,7 @@ import com.coinbase.java.domain.request.OauthApplication;
 import com.coinbase.java.domain.request.TokenRequest;
 import com.coinbase.java.domain.request.TransactionFromRequest;
 import com.coinbase.java.domain.request.TransactionRequest;
+import com.coinbase.java.domain.request.UserRequest;
 import com.coinbase.java.domain.response.BuyResponse;
 import com.coinbase.java.domain.response.ExchangeRatesResponse;
 import com.coinbase.java.domain.response.SendMoneyResponse;
@@ -31,8 +32,7 @@ public class CoinbaseClient {
   public static final String FORWARD_SLASH = "/";
   public static final String ACCOUNT_CHANGES = "/account_changes";
   public static final String GENERATE_RECEIVE_ADDRESS = "/account/generate_receive_address";
-  public static final String USERS = "/users";
-  public static final String TRANSFERS = "/transfers";
+  
   public static final String BALANCE = "/account/balance";
   public static final String RECEIVE_ADDRESS = "/account/receive_address";
   public static final String ADDRESSES = "/addresses";
@@ -72,6 +72,10 @@ public class CoinbaseClient {
   public static final String RESEND_REQUEST = "resend_request";
   public static final String CANCEL_REQUEST = "cancel_request";
   public static final String COMPLETE_REQUEST = "complete_request";
+  
+  public static final String TRANSFERS = "/transfers";
+  
+  public static final String USERS = "/users";
   
   private static final String API_KEY = "?api_key=";
 
@@ -380,7 +384,7 @@ public class CoinbaseClient {
 
     return sendMoneyResponse;
   }
-  //NEW
+  
   public String postTransactionsRequestMoney(TransactionFromRequest transactionFromRequest) throws ClientProtocolException, IOException {
     String operation = TRANSACTIONS + FORWARD_SLASH + REQUEST_MONEY;
     
@@ -391,7 +395,7 @@ public class CoinbaseClient {
     
     return responseString;
   }
-  //NEW
+  
   public String putTransactionsResendRequest(String transactionId) throws ClientProtocolException, IOException {
     String operation = TRANSACTIONS + FORWARD_SLASH + transactionId + FORWARD_SLASH + RESEND_REQUEST;
     
@@ -399,7 +403,7 @@ public class CoinbaseClient {
     
     return responseString;
   }
-  //NEW
+  
   public String deleteTransactionsCancelRequest(String transactionId) throws ClientProtocolException, IOException {
     String operation = TRANSACTIONS + FORWARD_SLASH + transactionId + FORWARD_SLASH + CANCEL_REQUEST;
     
@@ -407,7 +411,7 @@ public class CoinbaseClient {
     
     return responseString;
   }
-  //NEW
+  
   public String putTransactionsCompleteRequest(String transactionId) throws ClientProtocolException, IOException {
     String operation = TRANSACTIONS + FORWARD_SLASH + transactionId + FORWARD_SLASH + COMPLETE_REQUEST;
     
@@ -423,6 +427,19 @@ public class CoinbaseClient {
 
     return responseString;
   }
+  
+  
+
+  public String postCreateUser(UserRequest userRequest) throws ClientProtocolException, IOException {
+    String operation = USERS;
+    
+    Gson gson = new Gson();
+    String payload = gson.toJson(userRequest);
+    String responseString = httpPost(operation, payload);
+
+    return responseString;
+  }
+
 
   public String getCurrentUser() throws ClientProtocolException, IOException {
     String operation = USERS;
@@ -431,6 +448,18 @@ public class CoinbaseClient {
 
     return responseString;
   }
+  
+  
+  public String putUserAccountSettings(String userId, UserRequest userRequest) throws ClientProtocolException, IOException {
+    String operation = USERS + FORWARD_SLASH + userId;
+    
+    Gson gson = new Gson();
+    String payload = gson.toJson(userRequest);
+    String responseString = httpPut(operation, payload);
+
+    return responseString;
+  }
+
 
   public String generateReceiveAddress() throws ClientProtocolException, IOException {
     String operation = GENERATE_RECEIVE_ADDRESS;
@@ -511,5 +540,6 @@ public class CoinbaseClient {
     // logger.info("httpResponse.toString(): " + responseString);
     return responseString;
   }
+
 
 }

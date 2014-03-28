@@ -1,4 +1,4 @@
-@CLIENT_OPERATIONS @WIP
+@CLIENT_OPERATIONS
 Feature: clientOperations - Execute Coinbase client operations.
 
 
@@ -261,11 +261,28 @@ When I get a user's recent buys and sells
 Then I see that a user's recent buys and sells are returned
 
 
+
+Scenario: I am able to create or signup a new user
+
+Given I have an instance of CoinbaseClient
+When I create a new user with email "test@hotmail.com" and password "testPassword"
+Then I see that the new user is created
+
+
+
 Scenario: I am able to get the current user with account settings
 
 Given I have an instance of CoinbaseClient
 When I get the current user with account settings
 Then I see that the current user with account settings is returned
+
+
+@WIP
+Scenario: I am able to update account settings for the current user
+
+Given I have an instance of CoinbaseClient
+When I update account settings for the user with user id "123a" email "test@hotmail.com"
+Then I see that the user account settings have been updated
 
 
 Scenario: I am able to buy bitcoin

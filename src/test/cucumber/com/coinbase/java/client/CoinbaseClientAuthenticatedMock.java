@@ -14,6 +14,7 @@ import com.coinbase.java.domain.request.OauthApplication;
 import com.coinbase.java.domain.request.TokenRequest;
 import com.coinbase.java.domain.request.TransactionFromRequest;
 import com.coinbase.java.domain.request.TransactionRequest;
+import com.coinbase.java.domain.request.UserRequest;
 import com.coinbase.java.domain.response.BuyResponse;
 import com.coinbase.java.domain.response.ExchangeRatesResponse;
 import com.coinbase.java.domain.response.SendMoneyResponse;
@@ -296,7 +297,7 @@ public class CoinbaseClientAuthenticatedMock extends CoinbaseClient {
     }
   }
 
-
+  
   @Override
   public String getCurrentUser() throws ClientProtocolException, IOException {
     try{
@@ -304,6 +305,17 @@ public class CoinbaseClientAuthenticatedMock extends CoinbaseClient {
     }
     catch(CoinbaseException e){
       return returnExpectedStringResponse(e, "getCurrentUserSuccess.json");
+    }
+  }
+  
+  
+  @Override
+  public String putUserAccountSettings(String userId, UserRequest userRequest) throws ClientProtocolException, IOException {
+    try{
+      return super.putUserAccountSettings(userId, userRequest);
+    }
+    catch(CoinbaseException e){
+      return returnExpectedStringResponse(e, "putUserAccountSettingsSuccess.json");
     }
   }
   
