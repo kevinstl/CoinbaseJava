@@ -87,6 +87,8 @@ public class CoinbaseHttpClient {
     if (StringUtils.isNotBlank(contentType)) {
       httpUriRequest.setHeader("content-type", contentType);
     }
+    
+    
 
     String responseString = "";
 
