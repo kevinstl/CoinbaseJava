@@ -37,7 +37,7 @@ public class CoinbaseHttpClient {
 
     HttpGet httpGet = new HttpGet(urlString);
 
-    String responseString = executeHttpUriRequest(httpGet, null);
+    String responseString = executeHttpUriRequest(httpGet, urlString, null, null);
 
     return responseString;
   }
@@ -53,7 +53,7 @@ public class CoinbaseHttpClient {
       httpPost.setEntity(stringEntity);
     }
 
-    String responseString = executeHttpUriRequest(httpPost, "application/json");
+    String responseString = executeHttpUriRequest(httpPost, urlString, payload, "application/json");
 
     return responseString;
   }
@@ -69,7 +69,7 @@ public class CoinbaseHttpClient {
       httpPut.setEntity(stringEntity);
     }
     
-    String responseString = executeHttpUriRequest(httpPut, "application/json");
+    String responseString = executeHttpUriRequest(httpPut, urlString, payload, "application/json");
     
     return responseString;
   }
@@ -77,18 +77,16 @@ public class CoinbaseHttpClient {
   public String executeDelete(String urlString) throws IOException, ClientProtocolException {
     HttpDelete httpDelete = new HttpDelete(urlString);
 
-    String responseString = executeHttpUriRequest(httpDelete, null);
+    String responseString = executeHttpUriRequest(httpDelete, urlString, null, null);
 
     return responseString;
   }
 
-  private String executeHttpUriRequest(HttpUriRequest httpUriRequest, String contentType) throws IOException, ClientProtocolException {
+  protected String executeHttpUriRequest(HttpUriRequest httpUriRequest, String urlString, String payload, String contentType) throws IOException, ClientProtocolException {
 
     if (StringUtils.isNotBlank(contentType)) {
       httpUriRequest.setHeader("content-type", contentType);
     }
-    
-    
 
     String responseString = "";
 
