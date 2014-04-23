@@ -29,6 +29,7 @@ public class AuthenticationHeaderAppender {
     mac.init(new SecretKeySpec(ACCESS_KEY.getBytes(), "HmacSHA256"));
     String signature = new String(Hex.encodeHex(mac.doFinal(message.getBytes())));
 
+
     httpUriRequest.setHeader(ACCESS_SIGNATURE, signature);
   }
 
