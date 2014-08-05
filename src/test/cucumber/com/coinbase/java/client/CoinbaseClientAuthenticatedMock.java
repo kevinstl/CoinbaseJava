@@ -6,6 +6,7 @@ import java.math.BigDecimal;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.http.client.ClientProtocolException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.coinbase.java.domain.request.ButtonRequest;
@@ -24,13 +25,16 @@ import com.google.gson.Gson;
 @Component
 public class CoinbaseClientAuthenticatedMock extends CoinbaseClient {
 
-  public CoinbaseClientAuthenticatedMock() {
-    super("mockApiKey");
-  }
+//  public CoinbaseClientAuthenticatedMock() {
+//    super("mockApiKey");
+//  }
+//  
+//  public CoinbaseClientAuthenticatedMock(String apiKey) {
+//    super(apiKey);
+//  }
   
-  public CoinbaseClientAuthenticatedMock(String apiKey) {
-    super(apiKey);
-  }
+  @Autowired
+  private CoinbaseHttpClient coinbaseHttpClient;
   
   
   @Override
@@ -408,6 +412,48 @@ public class CoinbaseClientAuthenticatedMock extends CoinbaseClient {
     this.getClass().getResource(ResponseDeserializerTest.JSON_PATH + "/" + responseFileName)));
   }
   
+  public String httpGet(String operation) throws IOException, ClientProtocolException {
+    String urlString = getOperationUrl(operation);
 
+    String responseString = coinbaseHttpClient.executeGet(urlString);
+    
+    checkResponseForAuthenticationError(responseString);
+
+    // logger.info("httpResponse.toString(): " + responseString);
+    return responseString;
+  }
+  
+  protected String httpPost(String operation, String payload) throws IOException, ClientProtocolException {
+    String urlString = getOperationUrl(operation);
+
+    String responseString = coinbaseHttpClient.executePost(urlString, payload);
+
+    checkResponseForAuthenticationError(responseString);
+
+    // logger.info("httpResponse.toString(): " + responseString);
+    return responseString;
+  }
+
+  protected String httpPut(String operation, String payload) throws IOException, ClientProtocolException {
+    String urlString = getOperationUrl(operation);
+
+    String responseString = coinbaseHttpClient.executePut(urlString, payload);
+
+    checkResponseForAuthenticationError(responseString);
+
+    // logger.info("httpResponse.toString(): " + responseString);
+    return responseString;
+  }
+
+  protected String httpDelete(String operation) throws IOException, ClientProtocolException {
+    String urlString = getOperationUrl(operation);
+
+    String responseString = coinbaseHttpClient.executeDelete(urlString);
+
+    checkResponseForAuthenticationError(responseString);
+
+    // logger.info("httpResponse.toString(): " + responseString);
+    return responseString;
+  }
 
 }

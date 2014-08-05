@@ -1,33 +1,22 @@
 package com.coinbase.java.client.authentication;
 
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 import java.io.IOException;
-import java.math.BigDecimal;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 
-import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.http.Header;
-import org.apache.http.HttpEntity;
-import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
-import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpUriRequest;
-import org.apache.http.conn.ClientConnectionManager;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.InjectMocks;
-import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-
-import com.coinbase.java.domain.deserializer.ResponseDeserializer;
-import com.coinbase.java.domain.response.BuyResponse;
-import com.coinbase.java.domain.response.SendMoneyResponse;
+import org.springframework.test.util.ReflectionTestUtils;
 
 public class AuthenticationHeaderAppenderTest {
   
@@ -38,6 +27,8 @@ public class AuthenticationHeaderAppenderTest {
   @Before
   public void setup() {
     MockitoAnnotations.initMocks(this);
+    
+    ReflectionTestUtils.setField(testObject, "coinbaseApiSecret", "mockCoinbaseApiSecret");
   }
   
   @Test
