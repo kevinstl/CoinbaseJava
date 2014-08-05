@@ -9,6 +9,8 @@ import java.security.NoSuchAlgorithmException;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
+import org.apache.http.HttpStatus;
+import org.apache.http.StatusLine;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpDelete;
@@ -38,6 +40,7 @@ public class CoinbaseAuthenticatedHttpClientTest {
   
   private @Mock HttpClient httpClient;
   private @Mock HttpResponse httpResponse;
+  private @Mock StatusLine statusLine;
   private @Mock HttpEntity httpEntity;
 
   private @Mock ClientConnectionManager clientConnectionManager;
@@ -47,6 +50,9 @@ public class CoinbaseAuthenticatedHttpClientTest {
   @Before
   public void setup() {
     MockitoAnnotations.initMocks(this);
+    
+    when(httpResponse.getStatusLine()).thenReturn(statusLine);
+    when(statusLine.getStatusCode()).thenReturn(HttpStatus.SC_OK);
   }
   
 

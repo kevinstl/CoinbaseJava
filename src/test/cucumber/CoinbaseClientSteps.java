@@ -34,6 +34,9 @@ public class CoinbaseClientSteps {
   private CoinbaseClientAuthenticatedMock coinbaseClientAuthenticatedMock;
   
   @Autowired
+  private CoinbaseClient coinbaseClient;
+  
+  @Autowired
   private ResponseDeserializer responseDeserializer;
 
   private String serviceResponse;
@@ -561,5 +564,21 @@ public class CoinbaseClientSteps {
     assertEquals("created", buyResponse.getTransfer().getStatus());
     
   }
+  
+  @Given("^I have a real instance of CoinbaseClient$")
+  public void I_have_a_real_instance_of_CoinbaseClient() throws Throwable {
+    assertNotNull(coinbaseClient);
+  }
 
+  @When("^I get my balance of bitcoins using the real client$")
+  public void I_get_my_balance_of_bitcoins_using_the_real_client() throws Throwable {
+    serviceResponse = coinbaseClient.getBalance();
+  }
+
+  @Then("^I see that a balance is returned using the real client$")
+  public void I_see_that_a_balance_is_returned_using_the_real_client() throws Throwable {
+    assertThat(serviceResponse, containsString("amount"));
+    assertThat(serviceResponse, containsString("currency"));
+  }
+  
 }

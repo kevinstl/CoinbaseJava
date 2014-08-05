@@ -7,6 +7,8 @@ import java.io.UnsupportedEncodingException;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
+import org.apache.http.HttpStatus;
+import org.apache.http.StatusLine;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpDelete;
@@ -29,6 +31,7 @@ public class CoinbaseHttpClientTest {
   
   private @Mock HttpClient httpClient;
   private @Mock HttpResponse httpResponse;
+  private @Mock StatusLine statusLine;
   private @Mock HttpEntity httpEntity;
 
   private @Mock ClientConnectionManager clientConnectionManager;
@@ -38,6 +41,9 @@ public class CoinbaseHttpClientTest {
     MockitoAnnotations.initMocks(this);
     
     testObject = new CoinbaseHttpClient(httpClient);
+    
+    when(httpResponse.getStatusLine()).thenReturn(statusLine);
+    when(statusLine.getStatusCode()).thenReturn(HttpStatus.SC_OK);
   }
   
   @Test

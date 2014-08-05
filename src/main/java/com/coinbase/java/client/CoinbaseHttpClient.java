@@ -10,6 +10,7 @@ import java.util.logging.Logger;
 import org.apache.commons.lang.StringUtils;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
+import org.apache.http.HttpStatus;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpDelete;
@@ -92,14 +93,16 @@ public class CoinbaseHttpClient {
 
     HttpResponse httpResponse = coinbaseApacheHttpClient.execute(httpUriRequest);
 
-    logger.info("httpResponse.toString(): " + httpResponse.toString());
+    responseString = httpResponse.toString();
+    
+    logger.info("httpResponse.toString(): " + responseString);
 
     // Get hold of the response entity
     HttpEntity entity = httpResponse.getEntity();
 
     // If the response does not enclose an entity, there is no need
     // to worry about connection release
-    if (entity != null) {
+    if(entity != null) {
       InputStream instream = entity.getContent();
       try {
 
@@ -112,7 +115,10 @@ public class CoinbaseHttpClient {
         while ((line = reader.readLine()) != null) {
           stringBuilder.append(line);
         }
-        responseString = stringBuilder.toString();
+        
+        if(HttpStatus.SC_OK == httpResponse.getStatusLine().getStatusCode()){
+          responseString = stringBuilder.toString();
+        }
         // System.out.println(responseString);
         logger.log(Level.FINEST, responseString);
 

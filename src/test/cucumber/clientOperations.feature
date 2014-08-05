@@ -16,6 +16,13 @@ When I get my balance of bitcoins
 Then I see that a balance is returned
 
 
+Scenario: I am able to execute an operation that requires authentication
+
+Given I have a real instance of CoinbaseClient
+When I get my balance of bitcoins using the real client
+Then I see that a balance is returned using the real client
+
+
 Scenario: I am able to get my bitcoin receive address
 
 Given I have an instance of CoinbaseClient
@@ -277,7 +284,7 @@ When I get the current user with account settings
 Then I see that the current user with account settings is returned
 
 
-@WIP
+
 Scenario: I am able to update account settings for the current user
 
 Given I have an instance of CoinbaseClient
@@ -298,4 +305,6 @@ Scenario: I am able to find the current value in BTC for a specified amount of U
 Given I want to find the value in BTC of "10" USD
 When I request the value in BTC for my USD
 Then I see an expected amount in BTC
+
+
 
