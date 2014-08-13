@@ -24,14 +24,8 @@ task sourcesJar(type: Jar) {
     classifier = 'sources'
     from sourceSets.main.allSource
 }
-configurations {
-    releaseArtifacts {}
-}
 artifacts {
     archives javadocJar, sourcesJar
-    releaseArtifacts jar
-    releaseArtifacts javadocJar
-    releaseArtifacts sourcesJar
 }
 
 repositories {
