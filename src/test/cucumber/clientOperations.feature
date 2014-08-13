@@ -15,7 +15,7 @@ Given I have an instance of CoinbaseClient
 When I get my balance of bitcoins
 Then I see that a balance is returned
 
-
+@WIP
 Scenario: I am able to execute an operation that requires authentication
 
 Given I have a real instance of CoinbaseClient

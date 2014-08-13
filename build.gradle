@@ -1,13 +1,37 @@
 apply plugin: 'java'
 apply plugin: 'eclipse'
-apply plugin: 'war'
+
+apply plugin: 'maven'
+apply plugin: 'signing'
+
+group = "com.github.kevinstl"
+archivesBaseName = "CoinbaseJava"
 
 sourceCompatibility = 1.6
-version = '1.0'
+version = '0.1.0'
 jar {
     manifest {
-        attributes 'Implementation-Title': 'Gradle Quickstart', 'Implementation-Version': version
+        attributes 'Implementation-Title': 'CoinbaseJava', 'Implementation-Version': version
     }
+}
+
+task javadocJar(type: Jar) {
+    classifier = 'javadoc'
+    from javadoc
+}
+
+task sourcesJar(type: Jar) {
+    classifier = 'sources'
+    from sourceSets.main.allSource
+}
+configurations {
+    releaseArtifacts {}
+}
+artifacts {
+    archives javadocJar, sourcesJar
+    releaseArtifacts jar
+    releaseArtifacts javadocJar
+    releaseArtifacts sourcesJar
 }
 
 repositories {
@@ -75,20 +99,48 @@ test {
 }
 
 uploadArchives {
-    repositories {
-       flatDir {
-           dirs 'repos'
-       }
+  repositories {
+    mavenDeployer {
+      beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
+
+      repository(url: "https://oss.sonatype.org/service/local/staging/deploy/maven2/") {
+        authentication(userName: ossrhUsername, password: ossrhPassword)
+      }
+
+      snapshotRepository(url: "https://oss.sonatype.org/content/repositories/snapshots/") {
+        authentication(userName: ossrhUsername, password: ossrhPassword)
+      }
+
+      pom.project {
+        name 'CoinbaseJava'
+        packaging 'jar'
+        // optionally artifactId can be defined here 
+        description 'Coinbase API Java Client Library.'
+        url 'https://github.com/kevinstl/CoinbaseJava'
+
+        scm {
+          connection 'https://github.com/kevinstl/CoinbaseJava.git'
+          developerConnection 'https://github.com/kevinstl/CoinbaseJava.git'
+          url 'https://github.com/kevinstl/CoinbaseJava'
+        }
+
+        licenses {
+          license {
+            name 'The Apache License, Version 2.0'
+            url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+          }
+        }
+
+        developers {
+          developer {
+            id 'kevinstl'
+            name 'Kevin Wilde'
+            email 'kjwilde@hotmail.com'
+          }
+        }
+      }
     }
+  }
 }
 
-war {
-	from 'src'
-	archiveName = 'CoinbaseJava.war'
-}
 
-jar {
-    manifest {
-        attributes 'Implementation-Title': 'Gradle Quickstart', 'Implementation-Version': version
-    }
-}

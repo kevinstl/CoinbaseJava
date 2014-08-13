@@ -4,10 +4,8 @@ import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.logging.Logger;
 
-import org.apache.commons.io.FileUtils;
 import org.apache.http.client.ClientProtocolException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import com.coinbase.java.domain.deserializer.ResponseDeserializer;
@@ -21,7 +19,6 @@ import com.coinbase.java.domain.request.UserRequest;
 import com.coinbase.java.domain.response.BuyResponse;
 import com.coinbase.java.domain.response.ExchangeRatesResponse;
 import com.coinbase.java.domain.response.SendMoneyResponse;
-import com.coinbase.java.domain.types.ExchangeRateType;
 import com.coinbase.java.exception.CoinbaseException;
 import com.google.gson.Gson;
 
