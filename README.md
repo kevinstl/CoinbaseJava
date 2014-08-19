@@ -21,7 +21,8 @@ coinbaseClient.buy(buyRequest);
 
 //Send Bitcoin
 BigDecimal bitcoinToSend = new BigDecimal(0.123);
-TransactionRequest transactionRequest = new TransactionRequest("bitcoinAddress", bitcoinToSend, "Transaction Note");
+TransactionRequest transactionRequest = 
+  new TransactionRequest("bitcoinAddress", bitcoinToSend, "Transaction Note");
 coinbaseClient.sendMoney(transactionRequest);
 ```
 
