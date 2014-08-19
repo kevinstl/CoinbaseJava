@@ -16,10 +16,10 @@ import org.springframework.stereotype.Component;
 @Component
 public class AuthenticationHeaderAppender {
 
-  @Value("${coinbase.new.apiKey}") 
+  @Value("${coinbase.apiKey}") 
   private String coinbaseApiKey;
   
-  @Value("${coinbase.new.apiSecret}") 
+  @Value("${coinbase.apiSecret}") 
   private String coinbaseApiSecret;
   
   public static final String ACCESS_KEY = "ACCESS_KEY";
