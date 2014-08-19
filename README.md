@@ -10,7 +10,13 @@ Coinbase API Java Client Library
 CoinbaseClient class contains all api calls.
 
 ```java
-CoinbaseClient coinbaseClient = new CoinbaseClient(apiKey);
+Add the following properties:
+
+coinbase.apiKey=yourApiKey
+coinbase.apiSecret=yourApiSecret
+
+@Autowired
+private CoinbaseClient coinbaseClient;
 
 //Buy Bitcoin
 BigDecimal bitcoinToBuy = new BigDecimal(0.123);
