@@ -12,8 +12,8 @@ CoinbaseClient class contains all api calls.
 
 ####Add the following properties:
 
-coinbase.apiKey=yourApiKey
-coinbase.apiSecret=yourApiSecret
+  coinbase.apiKey=yourApiKey
+  coinbase.apiSecret=yourApiSecret
 
 ```java
 @Autowired
