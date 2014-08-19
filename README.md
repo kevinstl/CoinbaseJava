@@ -9,12 +9,13 @@ Coinbase API Java Client Library
 
 CoinbaseClient class contains all api calls.
 
-```java
-Add the following properties:
+
+####Add the following properties:
 
 coinbase.apiKey=yourApiKey
 coinbase.apiSecret=yourApiSecret
 
+```java
 @Autowired
 private CoinbaseClient coinbaseClient;
 
