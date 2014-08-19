@@ -1,4 +1,4 @@
-package com.coinbase.java.client;
+package com.github.kevinstl.coinbase.java.client;
 
 import java.io.IOException;
 import java.math.BigDecimal;
@@ -9,17 +9,20 @@ import org.apache.http.client.ClientProtocolException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.coinbase.java.domain.request.ButtonRequest;
-import com.coinbase.java.domain.request.BuyRequest;
-import com.coinbase.java.domain.request.OauthApplication;
-import com.coinbase.java.domain.request.TokenRequest;
-import com.coinbase.java.domain.request.TransactionFromRequest;
-import com.coinbase.java.domain.request.TransactionRequest;
-import com.coinbase.java.domain.request.UserRequest;
-import com.coinbase.java.domain.response.BuyResponse;
-import com.coinbase.java.domain.response.ExchangeRatesResponse;
-import com.coinbase.java.domain.response.SendMoneyResponse;
-import com.coinbase.java.exception.CoinbaseException;
+import com.github.kevinstl.coinbase.java.client.CoinbaseClient;
+import com.github.kevinstl.coinbase.java.client.CoinbaseHttpClient;
+import com.github.kevinstl.coinbase.java.client.ResponseDeserializerTest;
+import com.github.kevinstl.coinbase.java.domain.request.ButtonRequest;
+import com.github.kevinstl.coinbase.java.domain.request.BuyRequest;
+import com.github.kevinstl.coinbase.java.domain.request.OauthApplication;
+import com.github.kevinstl.coinbase.java.domain.request.TokenRequest;
+import com.github.kevinstl.coinbase.java.domain.request.TransactionFromRequest;
+import com.github.kevinstl.coinbase.java.domain.request.TransactionRequest;
+import com.github.kevinstl.coinbase.java.domain.request.UserRequest;
+import com.github.kevinstl.coinbase.java.domain.response.BuyResponse;
+import com.github.kevinstl.coinbase.java.domain.response.ExchangeRatesResponse;
+import com.github.kevinstl.coinbase.java.domain.response.SendMoneyResponse;
+import com.github.kevinstl.coinbase.java.exception.CoinbaseException;
 import com.google.gson.Gson;
 
 @Component

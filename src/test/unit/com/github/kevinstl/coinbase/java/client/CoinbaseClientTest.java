@@ -1,4 +1,4 @@
-package com.coinbase.java.client;
+package com.github.kevinstl.coinbase.java.client;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -13,8 +13,10 @@ import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
-import com.coinbase.java.domain.deserializer.ResponseDeserializer;
-import com.coinbase.java.domain.types.ExchangeRateType;
+import com.github.kevinstl.coinbase.java.client.CoinbaseAuthenticatedHttpClient;
+import com.github.kevinstl.coinbase.java.client.CoinbaseClient;
+import com.github.kevinstl.coinbase.java.domain.deserializer.ResponseDeserializer;
+import com.github.kevinstl.coinbase.java.domain.types.ExchangeRateType;
 
 import static org.mockito.Mockito.when;
 import static org.mockito.Matchers.any;

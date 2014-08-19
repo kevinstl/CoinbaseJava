@@ -1,4 +1,4 @@
-package com.coinbase.java.client;
+package com.github.kevinstl.coinbase.java.client;
 
 import java.io.ByteArrayInputStream;
 import java.io.File;
@@ -21,9 +21,9 @@ import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
-import com.coinbase.java.domain.deserializer.ResponseDeserializer;
-import com.coinbase.java.domain.response.BuyResponse;
-import com.coinbase.java.domain.response.SendMoneyResponse;
+import com.github.kevinstl.coinbase.java.domain.deserializer.ResponseDeserializer;
+import com.github.kevinstl.coinbase.java.domain.response.BuyResponse;
+import com.github.kevinstl.coinbase.java.domain.response.SendMoneyResponse;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;

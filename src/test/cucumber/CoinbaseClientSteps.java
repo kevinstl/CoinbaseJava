@@ -8,19 +8,19 @@ import java.math.BigDecimal;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.coinbase.java.client.CoinbaseClient;
-import com.coinbase.java.client.CoinbaseClientAuthenticatedMock;
-import com.coinbase.java.domain.deserializer.ResponseDeserializer;
-import com.coinbase.java.domain.request.ButtonRequest;
-import com.coinbase.java.domain.request.BuyRequest;
-import com.coinbase.java.domain.request.OauthApplication;
-import com.coinbase.java.domain.request.OauthApplication.Application;
-import com.coinbase.java.domain.request.TokenRequest;
-import com.coinbase.java.domain.request.TransactionFromRequest;
-import com.coinbase.java.domain.request.TransactionRequest;
-import com.coinbase.java.domain.request.UserRequest;
-import com.coinbase.java.domain.response.BuyResponse;
-import com.coinbase.java.domain.response.SendMoneyResponse;
+import com.github.kevinstl.coinbase.java.client.CoinbaseClient;
+import com.github.kevinstl.coinbase.java.client.CoinbaseClientAuthenticatedMock;
+import com.github.kevinstl.coinbase.java.domain.deserializer.ResponseDeserializer;
+import com.github.kevinstl.coinbase.java.domain.request.ButtonRequest;
+import com.github.kevinstl.coinbase.java.domain.request.BuyRequest;
+import com.github.kevinstl.coinbase.java.domain.request.OauthApplication;
+import com.github.kevinstl.coinbase.java.domain.request.TokenRequest;
+import com.github.kevinstl.coinbase.java.domain.request.TransactionFromRequest;
+import com.github.kevinstl.coinbase.java.domain.request.TransactionRequest;
+import com.github.kevinstl.coinbase.java.domain.request.UserRequest;
+import com.github.kevinstl.coinbase.java.domain.request.OauthApplication.Application;
+import com.github.kevinstl.coinbase.java.domain.response.BuyResponse;
+import com.github.kevinstl.coinbase.java.domain.response.SendMoneyResponse;
 
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;

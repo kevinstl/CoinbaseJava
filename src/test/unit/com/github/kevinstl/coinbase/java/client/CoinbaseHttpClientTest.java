@@ -1,4 +1,4 @@
-package com.coinbase.java.client;
+package com.github.kevinstl.coinbase.java.client;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
@@ -19,6 +19,8 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+
+import com.github.kevinstl.coinbase.java.client.CoinbaseHttpClient;
 
 import static org.junit.Assert.assertEquals;
 

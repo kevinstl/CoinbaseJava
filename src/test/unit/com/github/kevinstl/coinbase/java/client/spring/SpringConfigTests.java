@@ -1,9 +1,9 @@
-package com.coinbase.java.client.spring;
+package com.github.kevinstl.coinbase.java.client.spring;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import com.coinbase.java.client.CoinbaseClient;
+import com.github.kevinstl.coinbase.java.client.CoinbaseClient;
 
 @Configuration
 public class SpringConfigTests {

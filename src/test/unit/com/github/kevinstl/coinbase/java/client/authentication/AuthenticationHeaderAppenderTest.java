@@ -1,4 +1,4 @@
-package com.coinbase.java.client.authentication;
+package com.github.kevinstl.coinbase.java.client.authentication;
 
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
@@ -17,6 +17,8 @@ import org.junit.Test;
 import org.mockito.InjectMocks;
 import org.mockito.MockitoAnnotations;
 import org.springframework.test.util.ReflectionTestUtils;
+
+import com.github.kevinstl.coinbase.java.client.authentication.AuthenticationHeaderAppender;
 
 public class AuthenticationHeaderAppenderTest {
   

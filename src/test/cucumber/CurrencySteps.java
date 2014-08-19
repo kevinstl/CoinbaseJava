@@ -5,11 +5,10 @@ import java.util.logging.Logger;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.coinbase.java.client.CoinbaseClient;
-import com.coinbase.java.client.CoinbaseClient;
-import com.coinbase.java.client.CoinbaseClientAuthenticatedMock;
-import com.coinbase.java.domain.deserializer.ResponseDeserializer;
-import com.coinbase.java.domain.response.CurrencyExchangeRateResponse;
+import com.github.kevinstl.coinbase.java.client.CoinbaseClient;
+import com.github.kevinstl.coinbase.java.client.CoinbaseClientAuthenticatedMock;
+import com.github.kevinstl.coinbase.java.domain.deserializer.ResponseDeserializer;
+import com.github.kevinstl.coinbase.java.domain.response.CurrencyExchangeRateResponse;
 
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;

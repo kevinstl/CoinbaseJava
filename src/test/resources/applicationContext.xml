@@ -26,6 +26,6 @@
 	        <property name="properties" ref="projectProperties" />
 	</bean>
   
-  <context:component-scan base-package="com.coinbase.java" />
+  <context:component-scan base-package="com.github.kevinstl.coinbase.java" />
 
 </beans>
